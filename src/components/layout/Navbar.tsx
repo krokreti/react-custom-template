@@ -98,7 +98,7 @@ const NavBar: React.FC<Children> = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Persistent drawer
+                        Título
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -116,6 +116,7 @@ const NavBar: React.FC<Children> = (props) => {
                 open={open}
             >
                 <DrawerHeader>
+                    Título
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
