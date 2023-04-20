@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Children from '../../models/Children';
+import FlightIcon from '@mui/icons-material/Flight';
 
 const drawerWidth = 240;
 
@@ -97,7 +98,8 @@ const NavBar: React.FC<Children> = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
+                        <FlightIcon sx={{ marginRight: 2 }} />
                         Título
                     </Typography>
                 </Toolbar>

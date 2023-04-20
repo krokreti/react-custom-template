@@ -1,16 +1,19 @@
+import { ThemeProvider } from '@mui/material/styles';
+import Theme from './themes/Theme';
 import NavBar from './components/layout/Navbar';
-import MainCard from './components/shared/MainCard';
+import Box from '@mui/material/Box';
+import Dashboard from './pages/Dashboard/Dashboard';
 
 function App() {
 
   return (
-    <div className="App">
-      <NavBar>
-        <MainCard title='Teste' >
-          Oi
-        </MainCard>
-      </NavBar>
-    </div>
+    <ThemeProvider theme={Theme}>
+      <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} >
+        <NavBar>
+          <Dashboard />
+        </NavBar>
+      </Box>
+    </ThemeProvider>
   );
 }
 
