@@ -21,6 +21,14 @@ const Message: React.FC<MessageType> = (props) => {
         }
     }, [props.show])
 
+    //rodar a funçao no componente pai para resetar o snackbar
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            props.clearHandler(false);
+        }, 4000);
+        return () => clearTimeout(timeoutId);
+    }, []);
+
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;

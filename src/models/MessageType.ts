@@ -3,6 +3,7 @@ interface MessageType {
     text: string,
     show: boolean,
     color: AlertColor
+    clearHandler: Function,
 }
 
 export default MessageType
