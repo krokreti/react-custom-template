@@ -4,7 +4,7 @@ type ButtonVariantType = "text" | "contained" | "outlined" | undefined
 type ColorType = "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning" | undefined
 
 type ButtonProps = {
-    text: string,
+    children: React.ReactNode | string,
     variant?: ButtonVariantType,
     disabled?: boolean,
     startIcon?: React.ReactNode,
@@ -26,7 +26,7 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
             color={props.color ?? "primary"}
             sx={props.sx}
         >
-            {props.text}
+            {props.children}
         </Button>
     )
 }

@@ -32,7 +32,7 @@ const Input: React.FC<InputPropType> = props => {
             type={props.type ?? "text"}
             size={"small"}
             inputProps={props.inputProps ?? {}}
-            sx={props.sx ?? {}}
+            sx={props.sx ?? { width: '100%' }}
             onChange={props.onChange}
             onBlur={props.onBlur}
         />

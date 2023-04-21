@@ -12,7 +12,9 @@ const SecondComponent = () => {
 
     return (<Box display={"flex"} flexDirection={"column"}>
         Segunda Tab
-        <CustomButton onClick={handleMessage} text="Ver Mensagem" />
+        <CustomButton onClick={handleMessage}  >
+            Ver Mensagem
+        </CustomButton>
         <Message color="success" show={showMessage} text="Mostrando mensagem..." clearHandler={setShowMessage} />
     </Box>
     )

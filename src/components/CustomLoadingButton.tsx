@@ -6,22 +6,22 @@ type ButtonVariantType = "text" | "contained" | "outlined" | undefined
 type ColorType = "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning" | undefined
 
 type ButtonProps = {
-    text: string,
+    children: React.ReactNode,
     isLoading: boolean,
     variant?: ButtonVariantType,
     disabled?: boolean,
     color?: ColorType,
-    startIcon?: React.ReactNode
-    endIcon?: React.ReactNode
+    startIcon?: React.ReactNode,
+    endIcon?: React.ReactNode,
+    spacing?: {},
     onClick: () => void,
 }
 
 const CustomLoadingButton: React.FC<ButtonProps> = (props) => {
     return (
-        <Box>
+        <Box sx={props.spacing ?? {}}>
             {!props.isLoading && (
                 <CustomButton
-                    text={props.text}
                     variant={props.variant ?? "contained"}
                     disabled={props.disabled ?? false}
                     color={props.color ?? "primary"}
@@ -29,7 +29,9 @@ const CustomLoadingButton: React.FC<ButtonProps> = (props) => {
                     endIcon={props.endIcon}
                     onClick={props.onClick}
                     sx={{ width: '100%' }}
-                />
+                >
+                    {props.children}
+                </CustomButton>
             )}
             {props.isLoading && (
                 <Box sx={{ display: 'flex', justifyContent: 'center' }}>

@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import FirstComponent from '../pages/Details/TabOne/FirstComponent';
 import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
-import { Typography } from '@mui/material';
+import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -63,7 +63,7 @@ const TabComponent = () => {
                 <SecondComponent />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                Alo alo teste
+                <ThirdComponent />
             </TabPanel>
         </Box>
     );
