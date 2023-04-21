@@ -8,6 +8,12 @@ const Theme = createTheme({
         secondary: {
             main: '#f50057',
         },
+        error: {
+            main: '#000'
+        },
+        background: {
+            default: '#EEF2F6'
+        }
     },
 });
 

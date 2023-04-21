@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Typography, useTheme } from '@mui/material';
 
 type CardType = {
     children: React.ReactNode,
@@ -19,6 +19,7 @@ const headerSX = {
 };
 
 const MainCard: React.FC<CardType> = (props) => {
+    const theme = useTheme();
     return (<>
         <Card
             elevation={props.elevation ? props.elevation : 3}
