@@ -51,7 +51,13 @@ const TabComponent = () => {
     return (
         <Box sx={{ width: '100%' }}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" indicatorColor={'primary'} >
+                <Tabs
+                    value={value}
+                    onChange={handleChange}
+                    aria-label="basic tabs example"
+                    indicatorColor={'primary'}
+                    variant="scrollable"
+                    scrollButtons="auto">
                     <Tab label="Item One" {...a11yProps(0)} />
                     <Tab label="Item Two" {...a11yProps(1)} />
                     <Tab label="Terceira Tab" {...a11yProps(2)} />
