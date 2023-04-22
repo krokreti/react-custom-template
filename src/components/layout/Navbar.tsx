@@ -20,7 +20,9 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import Children from '../../models/Children';
 import FlightIcon from '@mui/icons-material/Flight';
-
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
@@ -73,8 +75,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavBar: React.FC<Children> = (props) => {
+    const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+
+    const navigateHandler = (route: string) => {
+        setOpen(false);
+        navigate(route);
+    }
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -125,16 +133,22 @@ const NavBar: React.FC<Children> = (props) => {
                 </DrawerHeader>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <ListItem disablePadding onClick={() => { navigateHandler('/') }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <DashboardIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Dashboard'} />
+                        </ListItemButton>
+                    </ListItem>
+                    <ListItem disablePadding onClick={() => { navigateHandler('details') }}>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <TableRowsIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={'Details'} />
+                        </ListItemButton>
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
