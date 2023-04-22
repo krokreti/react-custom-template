@@ -13,9 +13,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
+        fontWeight: 'bold'
     },
     [`&.${tableCellClasses.body}`]: {
         fontSize: 14,
+
     },
 }));
 
@@ -36,20 +38,20 @@ const DashboardTable: React.FC<{ posts: Post[] }> = ({ posts }) => {
                 <TableHead>
                     <TableRow>
                         <StyledTableCell>Id</StyledTableCell>
-                        <StyledTableCell align="right">User Id</StyledTableCell>
-                        <StyledTableCell align="right">Title</StyledTableCell>
-                        <StyledTableCell align="right">Body</StyledTableCell>
+                        <StyledTableCell align="left">User Id</StyledTableCell>
+                        <StyledTableCell align="center">Title</StyledTableCell>
+                        <StyledTableCell align="center">Body</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {posts.map((post) => (
                         <StyledTableRow key={post.id}>
-                            <StyledTableCell component="th" scope="row">
+                            <StyledTableCell component="th" scope="row" >
                                 {post.id}
                             </StyledTableCell>
-                            <StyledTableCell align="right">{post.userId}</StyledTableCell>
-                            <StyledTableCell align="left">{post.title}</StyledTableCell>
-                            <StyledTableCell align="left">{post.body}</StyledTableCell>
+                            <StyledTableCell align="right" >{post.userId}</StyledTableCell>
+                            <StyledTableCell align="left" >{post.title}</StyledTableCell>
+                            <StyledTableCell align="left" >{post.body}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

@@ -6,6 +6,9 @@ import { Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks/redux-hooks';
 import { authActions } from './store/auth-slice';
 import { useEffect } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/pt-br';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -17,13 +20,15 @@ function App() {
   }, [])
 
   return (
-    <ThemeProvider theme={Theme}>
-      <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} >
-        <NavBar>
-        </NavBar>
-        <Outlet />
-      </Box>
-    </ThemeProvider>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
+      <ThemeProvider theme={Theme}>
+        <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} >
+          <NavBar>
+          </NavBar>
+          <Outlet />
+        </Box>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 
