@@ -1,11 +1,22 @@
-import _React from 'react';
+import _React, { useState } from 'react';
 import { Box } from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayJs, { Dayjs } from 'dayjs';
+import CustomDatePicker from '../../../components/CustomDatePicker';
+import { DatePicker } from '@mui/x-date-pickers';
+
 
 const FourthComponent = () => {
+    const [data, setData] = useState<Dayjs | null>(dayJs());
+
+    const inputDataHandler = (newValue: Dayjs | null) => {
+        setData(newValue);
+        console.log(newValue)
+    }
+
     return (<Box display={'flex'} flexDirection={'column'}>
         Oi
-        <DatePicker label="Basic date picker" slotProps={{ textField: { helperText: 'DD/MM/AAAA' } }} />
+        <span>{data?.toISOString()}</span>
+        <DatePicker label="Basic date picker" onChange={inputDataHandler} value={data} />
     </Box>)
 }
 
