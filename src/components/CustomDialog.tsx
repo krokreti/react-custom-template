@@ -15,16 +15,6 @@ type DialogProps = {
 }
 
 const CustomDialog: React.FC<DialogProps> = (props) => {
-    const [open, setOpen] = React.useState(false);
-
-    // const handleClickOpen = () => {
-    //     setOpen(true);
-    // };
-
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
-    // {props.children}
     return (<Dialog
         open={props.open}
         onClose={props.handleClose}

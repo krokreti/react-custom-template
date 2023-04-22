@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 
 const FirstComponent = () => {
     const [openDialog, setOpenDialog] = useState<boolean>(false);
-
     const handleCloseDialog = () => {
         setOpenDialog(false);
     }
@@ -23,7 +22,7 @@ const FirstComponent = () => {
     const dialogActions = (
         <>
             <CustomButton onClick={handleCloseDialog} color='secondary' variant='text'>Cancel</CustomButton>
-            <CustomButton onClick={handleCloseDialog}>Confirm</CustomButton>
+            <CustomButton onClick={handleCloseDialog} >Confirm</CustomButton>
         </>
     );
 

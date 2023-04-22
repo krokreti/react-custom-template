@@ -5,6 +5,7 @@ import { useState } from 'react';
 import FirstComponent from '../pages/Details/TabOne/FirstComponent';
 import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
+import FourthComponent from '../pages/Details/TabFour/FourthComponent';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -54,6 +55,7 @@ const TabComponent = () => {
                     <Tab label="Item One" {...a11yProps(0)} />
                     <Tab label="Item Two" {...a11yProps(1)} />
                     <Tab label="Terceira Tab" {...a11yProps(2)} />
+                    <Tab label="4° Tab Tab" {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} >
@@ -64,6 +66,9 @@ const TabComponent = () => {
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <ThirdComponent />
+            </TabPanel>
+            <TabPanel value={value} index={3}>
+                <FourthComponent />
             </TabPanel>
         </Box>
     );
