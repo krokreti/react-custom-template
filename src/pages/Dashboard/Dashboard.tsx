@@ -3,6 +3,7 @@ import MainCard from "../../components/shared/MainCard";
 import useHttp from "../../hooks/use-http";
 import DashboardTable from "./DashboardTable";
 import Post from '../../models/Post';
+import LoadingCard from "../../components/LoadingCard";
 
 const Dashboard = () => {
     const [posts, setPosts] = useState<Post[]>([]);
@@ -16,7 +17,8 @@ const Dashboard = () => {
 
     return (<>
         <MainCard title="Dashboard" >
-            <DashboardTable posts={posts} />
+            {isLoading && <LoadingCard />}
+            {!isLoading && <DashboardTable posts={posts} />}
         </MainCard>
     </>)
 }
