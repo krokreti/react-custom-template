@@ -23,12 +23,12 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <ThemeProvider theme={Theme}>
-        <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} marginBottom={7}>
+        <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} >
           <NavBar>
           </NavBar>
           <Outlet />
+          {/* <Footer /> */}
         </Box>
-        <Footer />
       </ThemeProvider>
     </LocalizationProvider>
   );
