@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Divider, Typography, Box } from '@mui/material';
 
 type CardType = {
     children: React.ReactNode,
@@ -32,11 +32,12 @@ const MainCard: React.FC<CardType> = (props) => {
                 // padding: (props.padding ? props.padding : 3),
             }}
         >
+
             {props.title && (<>
                 <CardHeader sx={headerSX} title={
                     <Typography variant='h6' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>
-                        {props.startIcon && (props.startIcon)}
-                        {props.title}
+                        {props.startIcon && (<Box display={'flex'} alignItems={'center'} marginRight={1}> {props.startIcon} </Box>)}
+                        <Box display={'flex'} alignItems={'center'}>{props.title}</Box>
                     </Typography>} />
                 <Divider />
             </>

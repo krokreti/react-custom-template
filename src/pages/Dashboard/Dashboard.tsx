@@ -5,10 +5,11 @@ import DashboardTable from "./DashboardTable";
 import LoadingCard from "../../components/LoadingCard";
 import EquipamentoAeronave from "../../models/EquipamentoAeronave";
 import FlightIcon from '@mui/icons-material/Flight';
+import ErrorCard from "../../components/ErrorCard";
 
 const Dashboard = () => {
     const [equipamentoAeronave, setEquipamentoAeronave] = useState<EquipamentoAeronave[]>([]);
-    const { sendRequest: requestPosts, isLoading } = useHttp();
+    const { sendRequest: requestPosts, isLoading, error } = useHttp();
 
     useEffect(() => {
         requestPosts({ url: 'http://localhost:3000/aeronaves/unidade/374' }, (data: EquipamentoAeronave[]) => {
@@ -20,7 +21,8 @@ const Dashboard = () => {
     return (<>
         <MainCard title={"Aeronaves"} startIcon={<FlightIcon />}>
             {isLoading && <LoadingCard />}
-            {!isLoading && <DashboardTable aeronaves={equipamentoAeronave} />}
+            {!isLoading && error && (<ErrorCard message={error} />)}
+            {!isLoading && !error && <DashboardTable aeronaves={equipamentoAeronave} />}
         </MainCard>
     </>)
 }

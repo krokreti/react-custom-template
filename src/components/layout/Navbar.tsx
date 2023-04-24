@@ -108,7 +108,7 @@ const NavBar: React.FC<Children> = (props) => {
                     </IconButton>
                     <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
                         <FlightIcon sx={{ marginRight: 2 }} />
-                        Título
+                        Manutenção de Aeronaves
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -126,7 +126,7 @@ const NavBar: React.FC<Children> = (props) => {
                 open={open}
             >
                 <DrawerHeader>
-                    Título
+                    Manutenção
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
