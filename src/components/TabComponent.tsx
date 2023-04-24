@@ -6,6 +6,10 @@ import FirstComponent from '../pages/Details/TabOne/FirstComponent';
 import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
+import TableRowsIcon from '@mui/icons-material/TableRows';
+import AppsIcon from '@mui/icons-material/Apps';
+import SettingsIcon from '@mui/icons-material/Settings';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -57,11 +61,13 @@ const TabComponent = () => {
                     aria-label="basic tabs example"
                     indicatorColor={'primary'}
                     variant="scrollable"
-                    scrollButtons="auto">
-                    <Tab label="Item One" {...a11yProps(0)} />
-                    <Tab label="Item Two" {...a11yProps(1)} />
-                    <Tab label="Terceira Tab" {...a11yProps(2)} />
-                    <Tab label="4° Tab Tab" {...a11yProps(3)} />
+                    allowScrollButtonsMobile
+                    scrollButtons="auto"
+                >
+                    <Tab label="Dados da Aeronave" icon={<TableRowsIcon />} iconPosition='start' {...a11yProps(0)} />
+                    <Tab label="Patrimônio" icon={<AppsIcon />} iconPosition='start' {...a11yProps(1)} />
+                    <Tab label="Controles Iniciais" icon={<SettingsIcon />} iconPosition='start' {...a11yProps(2)} />
+                    <Tab label="Manutenções Realizadas" icon={<FormatListNumberedIcon />} iconPosition='start' {...a11yProps(3)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} >

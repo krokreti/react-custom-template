@@ -23,7 +23,7 @@ const Details = () => {
     }, []);
 
     return (
-        <MainCard title={`Detalhe da Aeronave: ${equipamentoAeronave?.NR_MATRICULA}`} startIcon={<FlightIcon />}>
+        <MainCard title={`Detalhes da Aeronave: ${equipamentoAeronave?.NR_MATRICULA}`} startIcon={<FlightIcon />}>
             {isLoading && (<LoadingCard />)}
             {!isLoading && (<DetailsForm aeronave={equipamentoAeronave} />)}
             {!isLoading && (<TabComponent />)}

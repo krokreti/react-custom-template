@@ -19,7 +19,7 @@ const Dashboard = () => {
     }, [])
 
     return (<>
-        <MainCard title={"Aeronaves"} startIcon={<FlightIcon />}>
+        <MainCard title={"Aeronaves"} startIcon={<FlightIcon color="primary" />}>
             {isLoading && <LoadingCard />}
             {!isLoading && error && (<ErrorCard message={error} />)}
             {!isLoading && !error && <DashboardTable aeronaves={equipamentoAeronave} />}

@@ -13,6 +13,8 @@ type InputPropType = {
     disabled?: boolean,
     shrink?: boolean,
     inputProps?: {},
+    multiline?: boolean,
+    rows?: string | number | undefined,
     sx?: {},
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void,
@@ -31,6 +33,8 @@ const Input: React.FC<InputPropType> = props => {
             required={props.required ?? false}
             disabled={props.disabled ?? false}
             type={props.type ?? "text"}
+            multiline={props.multiline ?? false}
+            rows={props.rows ?? undefined}
             size={"small"}
             InputLabelProps={{ shrink: true }}
             inputProps={props.inputProps ?? {}}
