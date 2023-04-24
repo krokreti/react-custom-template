@@ -21,7 +21,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Children from '../../models/Children';
 import FlightIcon from '@mui/icons-material/Flight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import TableRowsIcon from '@mui/icons-material/TableRows';
+import ArticleIcon from '@mui/icons-material/Article';
 import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -126,7 +126,7 @@ const NavBar: React.FC<Children> = (props) => {
                 anchor="left"
                 open={open}
             >
-                <DrawerHeader>
+                <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
                     Manutenção
                     <IconButton onClick={handleDrawerClose}>
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
@@ -145,9 +145,9 @@ const NavBar: React.FC<Children> = (props) => {
                     <ListItem disablePadding onClick={() => { navigateHandler('details') }}>
                         <ListItemButton>
                             <ListItemIcon>
-                                <TableRowsIcon />
+                                <ArticleIcon />
                             </ListItemIcon>
-                            <ListItemText primary={'Details'} />
+                            <ListItemText primary={'Relatórios'} />
                         </ListItemButton>
                     </ListItem>
                 </List>
