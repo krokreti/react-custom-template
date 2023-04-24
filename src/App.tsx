@@ -8,6 +8,7 @@ import { authActions } from './store/auth-slice';
 import { useEffect } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import Footer from './components/layout/Footer';
 import 'dayjs/locale/pt-br';
 
 function App() {
@@ -22,11 +23,12 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <ThemeProvider theme={Theme}>
-        <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} >
+        <Box className="App" bgcolor={'#EEF2F6'} height={'100vh'} marginBottom={7}>
           <NavBar>
           </NavBar>
           <Outlet />
         </Box>
+        <Footer />
       </ThemeProvider>
     </LocalizationProvider>
   );

@@ -7,7 +7,6 @@ import FlightIcon from '@mui/icons-material/Flight';
 const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     // var disp = aeronave?.DS_SITUACAO_ATUAL == 'DI' ? 'success' : 'error';
 
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <Grid container gap={3}>
