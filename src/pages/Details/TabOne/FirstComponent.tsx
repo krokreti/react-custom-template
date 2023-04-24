@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomDialog from "../../../components/CustomDialog";
 import CustomButton from "../../../components/CustomButton";
 import { Box } from '@mui/material';
+import { useParams } from "react-router-dom";
+import useHttp from '../../../hooks/use-http';
+import EquipamentoAeronave from '../../../models/EquipamentoAeronave';
 
 const FirstComponent = () => {
+    const [equipamentoAeronave, setEquipamentoAeronave] = useState<EquipamentoAeronave>();
+    const { sendRequest, isLoading, error } = useHttp();
+    const params = useParams();
+
+    useEffect(() => {
+        sendRequest({ url: `http://localhost:3000/siloms/api/aeronave/${params.id}` }, (data: EquipamentoAeronave) => {
+            setEquipamentoAeronave(data);
+            console.log(data);
+        })
+    }, [])
+
     const [openDialog, setOpenDialog] = useState<boolean>(false);
     const handleCloseDialog = () => {
         setOpenDialog(false);

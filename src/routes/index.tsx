@@ -11,11 +11,12 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <Dashboard />
+
             },
             {
-                path: 'details',
+                path: 'detalhes-aeronave/:id',
                 element: <Details />
-            }
+            },
         ]
     }
 ])

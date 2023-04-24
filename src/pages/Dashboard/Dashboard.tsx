@@ -2,23 +2,25 @@ import { useEffect, useState } from "react";
 import MainCard from "../../components/shared/MainCard";
 import useHttp from "../../hooks/use-http";
 import DashboardTable from "./DashboardTable";
-import Post from '../../models/Post';
 import LoadingCard from "../../components/LoadingCard";
+import EquipamentoAeronave from "../../models/EquipamentoAeronave";
+import FlightIcon from '@mui/icons-material/Flight';
 
 const Dashboard = () => {
-    const [posts, setPosts] = useState<Post[]>([]);
+    const [equipamentoAeronave, setEquipamentoAeronave] = useState<EquipamentoAeronave[]>([]);
     const { sendRequest: requestPosts, isLoading } = useHttp();
 
     useEffect(() => {
-        requestPosts({ url: 'https://jsonplaceholder.typicode.com/posts' }, (data: Post[]) => {
-            setPosts(data);
+        requestPosts({ url: 'http://localhost:3000/aeronaves/unidade/374' }, (data: EquipamentoAeronave[]) => {
+            setEquipamentoAeronave(data);
+            console.log(data);
         })
     }, [])
 
     return (<>
-        <MainCard title="Dashboard" >
+        <MainCard title={"Aeronaves"} startIcon={<FlightIcon />}>
             {isLoading && <LoadingCard />}
-            {!isLoading && <DashboardTable posts={posts} />}
+            {!isLoading && <DashboardTable aeronaves={equipamentoAeronave} />}
         </MainCard>
     </>)
 }

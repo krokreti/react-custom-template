@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, Divider, Typography } from '@mui/materia
 type CardType = {
     children: React.ReactNode,
     title?: string,
+    startIcon?: React.ReactNode,
     elevation?: number,
     margin?: number,
     padding?: number,
@@ -32,7 +33,11 @@ const MainCard: React.FC<CardType> = (props) => {
             }}
         >
             {props.title && (<>
-                <CardHeader sx={headerSX} title={<Typography variant='h6' fontWeight={'bold'}>{props.title}</Typography>} />
+                <CardHeader sx={headerSX} title={
+                    <Typography variant='h6' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>
+                        {props.startIcon && (props.startIcon)}
+                        {props.title}
+                    </Typography>} />
                 <Divider />
             </>
             )}
