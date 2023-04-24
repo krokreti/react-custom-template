@@ -11,9 +11,10 @@ type InputPropType = {
     helperText?: string,
     value?: string | number,
     disabled?: boolean,
+    shrink?: boolean,
     inputProps?: {},
     sx?: {},
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
     onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void,
 }
 
@@ -31,6 +32,7 @@ const Input: React.FC<InputPropType> = props => {
             disabled={props.disabled ?? false}
             type={props.type ?? "text"}
             size={"small"}
+            InputLabelProps={{ shrink: true }}
             inputProps={props.inputProps ?? {}}
             sx={props.sx ?? { width: '100%' }}
             onChange={props.onChange}

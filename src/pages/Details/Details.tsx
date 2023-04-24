@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { CircularProgress } from '@mui/material';
 import EquipamentoAeronave from "../../models/EquipamentoAeronave";
 import DetailsForm from './DetailsForm';
+import FlightIcon from '@mui/icons-material/Flight';
 
 const Details = () => {
     const params = useParams();
@@ -22,8 +23,8 @@ const Details = () => {
     }, []);
 
     return (
-        <MainCard title="Details">
-            <DetailsForm />
+        <MainCard title={`Detalhe da Aeronave: ${equipamentoAeronave?.NR_MATRICULA}`} startIcon={<FlightIcon />}>
+            {!isLoading && (<DetailsForm aeronave={equipamentoAeronave} />)}
             {isLoading && (<CircularProgress />)}
             {!isLoading && (<TabComponent />)}
         </MainCard>)
