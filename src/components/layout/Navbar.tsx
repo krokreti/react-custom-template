@@ -23,6 +23,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import TableRowsIcon from '@mui/icons-material/TableRows';
 import { useNavigate } from 'react-router-dom';
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{

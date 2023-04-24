@@ -1,8 +1,9 @@
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router-dom'
-import Box from '@mui/material/Box'
+import { Box, Typography } from '@mui/material'
 import Stack from '@mui/material/Stack';
 import React, { useState, useEffect } from 'react';
 import CustomCard from '../../components/CustomCard';
+import WarningIcon from '@mui/icons-material/Warning';
 
 const ErrorPage = () => {
     const [counter, setCounter] = useState<number>(3);
@@ -29,11 +30,16 @@ const ErrorPage = () => {
                     gap={4}
                 >
                     <CustomCard width='fit-content'>
-                        <h1>Oops!</h1>
-                        <h2>An error ocurred!</h2>
-                        <h2>{error.status}</h2>
-                        <p>{error.statusText}</p>
+                        <Typography variant='h4' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>Oops!</Typography>
+                        <Typography variant='h5' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>
+                            Ocorreu um erro!
+                        </Typography>
+                        <Typography variant='h6' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>
+                            <WarningIcon color='warning' /> Error {error.status}
+                        </Typography>
+                        <Typography variant='h6' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>{error.statusText}</Typography>
                         {error.data?.message && <p>{error.data.message}</p>}
+                        <Typography variant='body2' fontWeight={'bold'} sx={{ display: "flex", alignItems: "center" }}>Redirecionando em {counter}s</Typography>
                     </CustomCard>
                 </Stack>
             </Box>

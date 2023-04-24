@@ -28,7 +28,7 @@ const MainCard: React.FC<CardType> = (props) => {
                 border: '1px solid',
                 borderColor: '#FFF',
                 margin: (props.margin ? props.margin : 3),
-
+                boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 // padding: (props.padding ? props.padding : 3),
             }}
         >
