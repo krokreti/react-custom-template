@@ -16,7 +16,7 @@ const Details = () => {
     // /siloms/api/aeronave/:nrEquipamento
     //http://localhost:3000/
     useEffect(() => {
-        sendRequest({ url: `http://localhost:3000/siloms/api/aeronave/${params.id}` }, (data: EquipamentoAeronave) => {
+        sendRequest({ url: `siloms/api/aeronave/${params.id}` }, (data: EquipamentoAeronave) => {
             setEquipamentoAeronave(data);
             console.log(data);
         });
@@ -26,7 +26,7 @@ const Details = () => {
         <MainCard title={`Detalhes da Aeronave: ${equipamentoAeronave?.NR_MATRICULA}`} startIcon={<FlightIcon />}>
             {isLoading && (<LoadingCard />)}
             {!isLoading && (<DetailsForm aeronave={equipamentoAeronave} />)}
-            {!isLoading && (<TabComponent />)}
+            {!isLoading && (<TabComponent aeronave={equipamentoAeronave} />)}
         </MainCard>)
 }
 

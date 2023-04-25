@@ -22,7 +22,7 @@ import Children from '../../models/Children';
 import FlightIcon from '@mui/icons-material/Flight';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -109,7 +109,9 @@ const NavBar: React.FC<Children> = (props) => {
                     </IconButton>
                     <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
                         <FlightIcon sx={{ marginRight: 2 }} />
-                        Manutenção de Aeronaves
+                        <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>
+                            Manutenção de Aeronaves
+                        </Link>
                     </Typography>
                 </Toolbar>
             </AppBar>

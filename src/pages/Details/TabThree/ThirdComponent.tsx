@@ -39,11 +39,12 @@ const ThirdComponent = () => {
     const emailErrorMessage = enteredEmailHasError ? 'O email é inválido' : '';
 
     useEffect(() => {
-        if (enteredLastNameIsValid && enteredEmailIsValid) {
-            setFormIsValid(true);
-        } else {
-            setFormIsValid(false);
-        }
+        // if (enteredLastNameIsValid && enteredEmailIsValid) {
+        //     setFormIsValid(true);
+        // } else {
+        //     setFormIsValid(false);
+        // }
+        setFormIsValid(enteredLastNameIsValid && enteredEmailIsValid)
     }, [enteredLastNameIsValid, enteredEmailIsValid]);
 
     return (<>

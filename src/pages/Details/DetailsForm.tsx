@@ -3,14 +3,15 @@ import Grid from '@mui/material/Grid';
 import Input from '../../components/Input';
 import EquipamentoAeronave from '../../models/EquipamentoAeronave';
 import FlightIcon from '@mui/icons-material/Flight';
+import * as dayjs from 'dayjs'
 
 const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
-    // var disp = aeronave?.DS_SITUACAO_ATUAL == 'DI' ? 'success' : 'error';
+    var disp = aeronave?.DS_SITUACAO_ATUAL == 'DISPONÍVEL' ? 'success' : 'error';
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container gap={3}>
-                <Grid item xs={5} sm={1} >
+            <Grid container gap={3} spacing={2}>
+                <Grid item xs={5} sm={4} md={2} >
                     <Input
                         id='matricula'
                         label='Matrícula'
@@ -20,7 +21,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.NR_MATRICULA}
                     />
                 </Grid>
-                <Grid item xs={6} sm={1} >
+                <Grid item xs={6} sm={4} md={2} >
                     <Input
                         id='unidade'
                         label='Unidade'
@@ -30,7 +31,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.SG_UNIDADE}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='sn'
                         label='SN'
@@ -40,7 +41,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.NR_SERIE}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='projeto'
                         label='Projeto'
@@ -50,17 +51,19 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.CD_PROJETO}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='dtFabricacao'
                         label='Data Fabricação'
                         type='text'
                         disabled
                         shrink
-                        value={aeronave?.DT_FABRICACAO}
+                        value={dayjs(aeronave?.DT_FABRICACAO).format('DD/MM/YYYY')}
                     />
                 </Grid>
-                <Grid item xs={12} sm={3} >
+            </Grid>
+            <Grid container gap={3} spacing={2} sx={{ marginTop: 3 }}>
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='pn'
                         label='PN'
@@ -70,7 +73,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.NR_PN}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='codemp'
                         label='CODEMP'
@@ -80,7 +83,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.CD_CODEMP}
                     />
                 </Grid>
-                <Grid item xs={12} sm={3} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='nomenclatura'
                         label='Nomenclatura'
@@ -90,7 +93,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.NM_BASICO}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='nsn'
                         label='NSN'
@@ -100,7 +103,9 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.NR_NSN}
                     />
                 </Grid>
-                <Grid item xs={12} sm={5} >
+            </Grid>
+            <Grid container gap={3} spacing={2} sx={{ marginTop: 3 }}>
+                <Grid item xs={12} sm={6} md={6} >
                     <Input
                         id='disponibilidade'
                         label='Disponibilidade'
@@ -112,7 +117,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.TX_DISPONIBILIDADE}
                     />
                 </Grid>
-                <Grid item xs={12} sm={3} >
+                <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='stAtual'
                         label='Situação Atual'
@@ -122,16 +127,16 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         value={aeronave?.DS_SITUACAO_ATUAL}
                     />
                 </Grid>
-                <Grid item xs={12} sm={2} display={'flex'} justifyContent={'center'} alignItems={'center'} height={'fit-content'}>
+                <Grid item xs={12} sm={4} md={2} display={'flex'} justifyContent={'center'} alignItems={'center'} height={'fit-content'}>
                     <Input
                         id='disp'
                         label='Disp.'
                         type='text'
                         disabled
                         shrink
-                        value={aeronave?.VL_DISP_ITEM}
+                        value={aeronave?.VL_DISP_ITEM == null ? '' : aeronave?.VL_DISP_ITEM}
                     />
-                    <FlightIcon color='success' sx={{ marginLeft: 3 }} />
+                    <FlightIcon color={disp} sx={{ marginLeft: 3 }} />
                 </Grid>
 
             </Grid>

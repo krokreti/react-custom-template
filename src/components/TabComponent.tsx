@@ -2,7 +2,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
-import FirstComponent from '../pages/Details/TabOne/FirstComponent';
+import TabDescricaoAeronave from '../pages/Details/TabDescricaoAeronave/TabDescricaoAeronave';
 import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
@@ -10,6 +10,7 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import AppsIcon from '@mui/icons-material/Apps';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import EquipamentoAeronave from '../models/EquipamentoAeronave';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -44,7 +45,7 @@ function a11yProps(index: number) {
     };
 }
 
-const TabComponent = () => {
+const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [value, setValue] = useState(0);
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -71,7 +72,7 @@ const TabComponent = () => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} >
-                <FirstComponent />
+                <TabDescricaoAeronave aeronave={aeronave} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <SecondComponent />

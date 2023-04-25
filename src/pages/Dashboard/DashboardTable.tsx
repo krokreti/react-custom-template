@@ -11,6 +11,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import IconButton from '@mui/material/IconButton';
 import EquipamentoAeronave from '../../models/EquipamentoAeronave';
 import { Link } from "react-router-dom";
+import FlightIcon from '@mui/icons-material/Flight';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -37,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const DashboardTable: React.FC<{ aeronaves: EquipamentoAeronave[] }> = ({ aeronaves }) => {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <Table sx={{ minWidth: 700 }} aria-label="customized table" size={'small'}>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="center">Id</StyledTableCell>
@@ -58,25 +59,27 @@ const DashboardTable: React.FC<{ aeronaves: EquipamentoAeronave[] }> = ({ aerona
                 <TableBody>
                     {aeronaves.map((aeronave) => (
                         <StyledTableRow key={aeronave.NR_EQUIPAMENTO}>
-                            <StyledTableCell component="th" scope="row" >
+                            <StyledTableCell component="th" scope="row" align="center" >
                                 <Link to={`/detalhes-aeronave/${aeronave.NR_EQUIPAMENTO}`} key={aeronave.NR_EQUIPAMENTO} style={{ textDecoration: 'none' }}>
-                                    <IconButton color="primary">
+                                    <IconButton sx={{
+                                        color: 'white', backgroundColor: '#0063cc', '&:hover': { backgroundColor: '#0069d9', borderColor: '#0062cc', boxShadow: 'none', },
+                                    }}>
                                         <ZoomInIcon />
                                     </IconButton>
                                 </Link>
                             </StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.DS_SITUACAO_ATUAL}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.IN_SITUACAO_ATUAL}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.NR_MATRICULA}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.SG_PROJETO}</StyledTableCell>
-                            <StyledTableCell align="right" >{aeronave.NR_PN}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.SG_UNIDADE}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.QT_IPLR}</StyledTableCell>
-                            <StyledTableCell align="right" >{aeronave.QT_AIFP}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.HR_TSN}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.DT_VENC_ITEM}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.SG_INSPECAO_ITEM}</StyledTableCell>
-                            <StyledTableCell align="left" >{aeronave.DT_VENC_ITEM}</StyledTableCell>
+                            <StyledTableCell align="center" > <FlightIcon color={aeronave?.DS_SITUACAO_ATUAL == 'DISPONÍVEL' ? 'success' : 'error'} /> </StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.IN_SITUACAO_ATUAL}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.NR_MATRICULA}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.SG_PROJETO}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.NR_PN}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.SG_UNIDADE}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.QT_IPLR}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.QT_AIFP}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.HR_TSN}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.DT_VENC_ITEM}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.SG_INSPECAO_ITEM}</StyledTableCell>
+                            <StyledTableCell align="center" >{aeronave.DT_VENC_ITEM}</StyledTableCell>
                         </StyledTableRow>
                     ))}
                 </TableBody>

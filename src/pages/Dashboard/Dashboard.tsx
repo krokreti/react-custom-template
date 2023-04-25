@@ -12,7 +12,7 @@ const Dashboard = () => {
     const { sendRequest: requestPosts, isLoading, error } = useHttp();
 
     useEffect(() => {
-        requestPosts({ url: 'http://localhost:3000/aeronaves/unidade/374' }, (data: EquipamentoAeronave[]) => {
+        requestPosts({ url: 'aeronaves/unidade/374' }, (data: EquipamentoAeronave[]) => {
             setEquipamentoAeronave(data);
             console.log(data);
         })

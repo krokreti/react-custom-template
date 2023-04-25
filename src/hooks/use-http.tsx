@@ -7,6 +7,8 @@ interface requestType {
     body?: object | {}
 }
 
+var baseUrl = 'http://localhost:3000/';
+
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<any>(null);
@@ -15,7 +17,7 @@ const useHttp = () => {
         setIsLoading(true);
         setError(null);
         try {
-            const response = await fetch(requestConfig.url, {
+            const response = await fetch(`${baseUrl}${requestConfig.url}`, {
                 method: requestConfig.method ? requestConfig.method : 'GET',
                 headers: requestConfig.headers ? requestConfig.headers : {},
                 body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
