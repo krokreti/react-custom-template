@@ -5,24 +5,12 @@ import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Children from '../../models/Children';
 import FlightIcon from '@mui/icons-material/Flight';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import ArticleIcon from '@mui/icons-material/Article';
-import { useNavigate, Link } from 'react-router-dom';
+import ProfileAvatar from './ProfileAvatar';
+import CustomDrawer from './CustomDrawer';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -76,46 +64,38 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavBar: React.FC<Children> = (props) => {
-    const navigate = useNavigate();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
-    const navigateHandler = (route: string) => {
-        setOpen(false);
-        navigate(route);
-    }
-
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
-                        <FlightIcon sx={{ marginRight: 2 }} />
-                        <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }}>
-                            Manutenção de Aeronaves
-                        </Link>
-                    </Typography>
+                <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
+                    <Box display={'flex'} alignItems={'center'}>
+                        {/* <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={handleDrawerOpen}
+                            edge="start"
+                            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+                        >
+                            <MenuIcon />
+                        </IconButton> */}
+                        <CustomDrawer />
+                        <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
+                            {/* <FlightIcon sx={{ marginRight: 2 }} /> */}
+                            <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }} >
+                                Manutenção de Aeronaves
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <ProfileAvatar />
+
                 </Toolbar>
             </AppBar>
-            <Drawer
+            {/* <Drawer
                 sx={{
                     width: drawerWidth,
                     flexShrink: 0,
@@ -166,7 +146,8 @@ const NavBar: React.FC<Children> = (props) => {
                         </ListItem>
                     ))}
                 </List>
-            </Drawer>
+            </Drawer> */}
+
             <Main open={open}>
                 <DrawerHeader />
                 {props.children}
