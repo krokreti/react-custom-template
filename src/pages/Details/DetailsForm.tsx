@@ -6,7 +6,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import * as dayjs from 'dayjs'
 
 const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
-    var disp = aeronave?.DS_SITUACAO_ATUAL == 'DISPONÍVEL' ? 'success' : 'error';
+    var disp = aeronave?.DS_SITUACAO_ATUAL == 'DISPONÍVEL' ? 'green' : 'red';
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -16,8 +16,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='matricula'
                         label='Matrícula'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.NR_MATRICULA}
                     />
                 </Grid>
@@ -26,8 +26,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='unidade'
                         label='Unidade'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.SG_UNIDADE}
                     />
                 </Grid>
@@ -36,8 +36,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='sn'
                         label='SN'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.NR_SERIE}
                     />
                 </Grid>
@@ -46,8 +46,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='projeto'
                         label='Projeto'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.CD_PROJETO}
                     />
                 </Grid>
@@ -56,8 +56,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='dtFabricacao'
                         label='Data Fabricação'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={dayjs(aeronave?.DT_FABRICACAO).format('DD/MM/YYYY')}
                     />
                 </Grid>
@@ -68,8 +68,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='pn'
                         label='PN'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.NR_PN}
                     />
                 </Grid>
@@ -78,8 +78,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='codemp'
                         label='CODEMP'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.CD_CODEMP}
                     />
                 </Grid>
@@ -88,8 +88,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='nomenclatura'
                         label='Nomenclatura'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.NM_BASICO}
                     />
                 </Grid>
@@ -98,8 +98,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='nsn'
                         label='NSN'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.NR_NSN}
                     />
                 </Grid>
@@ -110,10 +110,10 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='disponibilidade'
                         label='Disponibilidade'
                         type='text'
-                        disabled
                         multiline
                         rows={3}
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.TX_DISPONIBILIDADE}
                     />
                 </Grid>
@@ -122,8 +122,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='stAtual'
                         label='Situação Atual'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.DS_SITUACAO_ATUAL}
                     />
                 </Grid>
@@ -132,11 +132,11 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         id='disp'
                         label='Disp.'
                         type='text'
-                        disabled
                         shrink
+                        inputProps={{ readOnly: true }}
                         value={aeronave?.VL_DISP_ITEM == null ? '' : aeronave?.VL_DISP_ITEM}
                     />
-                    <FlightIcon color={disp} sx={{ marginLeft: 3 }} />
+                    <FlightIcon style={{ color: disp }} sx={{ marginLeft: 3 }} />
                 </Grid>
 
             </Grid>

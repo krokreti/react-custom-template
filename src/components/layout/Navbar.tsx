@@ -74,15 +74,6 @@ const NavBar: React.FC<Children> = (props) => {
             <AppBar position="fixed" open={open}>
                 <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
                     <Box display={'flex'} alignItems={'center'}>
-                        {/* <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={handleDrawerOpen}
-                            edge="start"
-                            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                        >
-                            <MenuIcon />
-                        </IconButton> */}
                         <CustomDrawer />
                         <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
                             {/* <FlightIcon sx={{ marginRight: 2 }} /> */}
@@ -95,59 +86,6 @@ const NavBar: React.FC<Children> = (props) => {
 
                 </Toolbar>
             </AppBar>
-            {/* <Drawer
-                sx={{
-                    width: drawerWidth,
-                    flexShrink: 0,
-                    '& .MuiDrawer-paper': {
-                        width: drawerWidth,
-                        boxSizing: 'border-box',
-                    },
-                }}
-                variant="persistent"
-                anchor="left"
-                open={open}
-            >
-                <DrawerHeader sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                    Manutenção
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </DrawerHeader>
-                <Divider />
-                <List>
-                    <ListItem disablePadding onClick={() => { navigateHandler('/') }}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <DashboardIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Dashboard'} />
-                        </ListItemButton>
-                    </ListItem>
-                    <ListItem disablePadding onClick={() => { navigateHandler('details') }}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <ArticleIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={'Relatórios'} />
-                        </ListItemButton>
-                    </ListItem>
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
-                </List>
-            </Drawer> */}
-
             <Main open={open}>
                 <DrawerHeader />
                 {props.children}

@@ -13,8 +13,6 @@ const Details = () => {
     const [equipamentoAeronave, setEquipamentoAeronave] = useState<EquipamentoAeronave>();
     const { sendRequest, isLoading } = useHttp();
 
-    // /siloms/api/aeronave/:nrEquipamento
-    //http://localhost:3000/
     useEffect(() => {
         sendRequest({ url: `siloms/api/aeronave/${params.id}` }, (data: EquipamentoAeronave) => {
             setEquipamentoAeronave(data);
