@@ -84,8 +84,8 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         <Grid container gap={3} spacing={2} marginTop={3} >
             <Grid item xs={12} sm={6} md={6} >
                 <Input
-                    id='disponibilidade'
-                    label='Disponibilidade'
+                    id='observacoes'
+                    label='Observações'
                     type='text'
                     multiline
                     rows={3}
