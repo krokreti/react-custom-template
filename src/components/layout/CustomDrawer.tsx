@@ -27,9 +27,7 @@ const CustomDrawer = () => {
 
     const toggleDrawer = (open: boolean) =>
         (_event: React.MouseEvent) => {
-            // setState({ ...state, [anchor]: open });
             setOpenDrawer(open);
-            console.log('teste')
         };
 
     const list = () => (

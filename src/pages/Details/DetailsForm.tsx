@@ -10,8 +10,8 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container gap={3} spacing={2}>
-                <Grid item xs={5} sm={4} md={2} >
+            <Grid container spacing={3}>
+                <Grid item xs={6} sm={4} md={2} >
                     <Input
                         id='matricula'
                         label='Matrícula'
@@ -104,7 +104,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                     />
                 </Grid>
             </Grid>
-            <Grid container gap={3} spacing={2} sx={{ marginTop: 3 }}>
+            <Grid container spacing={3} sx={{ marginTop: 2 }}>
                 <Grid item xs={12} sm={6} md={6} >
                     <Input
                         id='disponibilidade'
