@@ -11,17 +11,20 @@ import useHttp from '../../../hooks/use-http';
 import TabelaManutencao from '../../../models/TabelaManutencao';
 import ConfiguracaoPrimaria from '../../../models/ConfiguracaoPrimaria';
 import Message from '../../../components/Message';
+import { AlertColor } from '@mui/material/Alert';
 
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
     const [listConfiguracaoPrimaria, setListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([]);
     const [listCicloInspecao, setListCicloInspecao] = useState<TabelaManutencao[]>([]);
-    const [openMessage, setOpenMessage] = useState<boolean>(false);
+    const [showMessage, setShowMessage] = useState<boolean>(false);
     const { sendRequest: sendRequestCicloInspecao } = useHttp();
     const { sendRequest: sendRequestConfiguracaoPrimaria } = useHttp();
     const { sendRequest: saveCicloInspecao, isLoading: isLoadingCicloInspecao } = useHttp();
     const { sendRequest: saveConfiguracaoPrimaria, isLoading: isLoadingConfiguracaoPrimaria } = useHttp();
+    const [text, setText] = useState<string>('');
+    const [color, setColor] = useState<AlertColor>('success');
 
     if (aeronave) {
         useEffect(() => {
@@ -73,6 +76,8 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         // (console.log('configuracao handler'))
 
         // setOpenMessage(true);
+        setText('Configuração Alterada com Sucesso!')
+        setShowMessage(true);
         onCloseConfiguracaoPrimariaDialog();
     }
 
@@ -176,7 +181,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             onClose={onCloseConfiguracaoPrimariaDialog}
             onSave={saveConfiguracaoPrimariaHandler}
             isLoading={isLoadingConfiguracaoPrimaria} />
-        {/* <Message color={color} show={openMessage} text={text} clearHandler={() => { setOpenMessage(false) }} /> */}
+        <Message color={color} show={showMessage} text={text} clearHandler={setShowMessage} />
     </Box>)
 }
 
