@@ -1,13 +1,17 @@
+import { Typography, Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 import CustomDialog from "../../../../components/CustomDialog";
 import TabelaManutencao from "../../../../models/TabelaManutencao";
-import { Typography } from '@mui/material';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import CustomButton from "../../../../components/CustomButton";
 
-const DialogCicloInspecao: React.FC<{ ciclos: TabelaManutencao[], open: boolean, onClose: () => void }> = (props) => {
+type Props = {
+    ciclos: TabelaManutencao[],
+    open: boolean,
+    isLoading: boolean,
+    onClose: () => void,
+    onSave: () => void,
+}
+
+const DialogCicloInspecao: React.FC<Props> = (props) => {
 
     var content = (<FormControl>
         <FormLabel id="ciclo-inspecao-radio-group">Ciclos de Inspeção:</FormLabel>
@@ -20,7 +24,10 @@ const DialogCicloInspecao: React.FC<{ ciclos: TabelaManutencao[], open: boolean,
         </RadioGroup>
     </FormControl>);
 
-    var actions = (<>Actions</>);
+    var actions = (<>
+        <CustomButton onClick={props.onClose} color="primary" variant="text">Cancelar</CustomButton>
+        <CustomButton color="success" onClick={props.onSave}> Salvar</CustomButton>
+    </>);
 
     return (<CustomDialog title="Alterar Ciclo de Inspeção" open={props.open} handleClose={props.onClose} content={content} actions={actions} />)
 }

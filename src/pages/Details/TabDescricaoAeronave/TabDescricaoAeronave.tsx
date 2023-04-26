@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Input from '../../../components/Input';
 import InputButton from '../../../components/InputButton';
@@ -7,17 +8,20 @@ import EditIcon from '@mui/icons-material/Edit';
 import DialogCicloInspecao from './Dialogs/DialogCicloInspecao';
 import DialogConfiguracaoPrimaria from './Dialogs/DialogConfiguracaoPrimaria';
 import useHttp from '../../../hooks/use-http';
-import { useEffect, useState } from 'react';
 import TabelaManutencao from '../../../models/TabelaManutencao';
 import ConfiguracaoPrimaria from '../../../models/ConfiguracaoPrimaria';
+import Message from '../../../components/Message';
 
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
     const [listConfiguracaoPrimaria, setListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([]);
     const [listCicloInspecao, setListCicloInspecao] = useState<TabelaManutencao[]>([]);
+    const [openMessage, setOpenMessage] = useState<boolean>(false);
     const { sendRequest: sendRequestCicloInspecao } = useHttp();
     const { sendRequest: sendRequestConfiguracaoPrimaria } = useHttp();
+    const { sendRequest: saveCicloInspecao, isLoading: isLoadingCicloInspecao } = useHttp();
+    const { sendRequest: saveConfiguracaoPrimaria, isLoading: isLoadingConfiguracaoPrimaria } = useHttp();
 
     if (aeronave) {
         useEffect(() => {
@@ -29,10 +33,6 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         }, [aeronave])
     }
 
-    const onCloseCicloInspecaoDialog = () => {
-        setOpenDialogCicloInspecao(false)
-    }
-
     if (aeronave) {
         useEffect(() => {
             sendRequestConfiguracaoPrimaria({ url: `siloms/api/configuracaoprimaria/aeronave/configuracao/material/${aeronave.CD_MATERIAL}` }, (result: ConfiguracaoPrimaria[]) => {
@@ -42,6 +42,38 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                 setListConfiguracaoPrimaria(result);
             })
         }, [aeronave])
+    }
+
+
+    const onCloseCicloInspecaoDialog = () => {
+        setOpenDialogCicloInspecao(false)
+    }
+
+    const onCloseConfiguracaoPrimariaDialog = () => {
+        setOpenDialogConfiguracaoPrimaria(false)
+    }
+
+    const saveCicloInspecaoHandler = async () => {
+        (console.log('ciclo handler'))
+        onCloseCicloInspecaoDialog();
+    }
+
+    const saveConfiguracaoPrimariaHandler = async (cdMaterial: number) => {
+        // console.log(cdMaterial);
+        // saveConfiguracaoPrimaria({
+        //     url: '',
+        //     method: 'PATCH',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     body: { CD_MATERIAL: cdMaterial }
+        // }, (result: any) => {
+        //     console.log(result)
+        // });
+        // (console.log('configuracao handler'))
+
+        // setOpenMessage(true);
+        onCloseConfiguracaoPrimariaDialog();
     }
 
     return (<Box sx={{ flexGrow: 1 }}>
@@ -115,7 +147,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             </Grid>
             <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={aeronave?.DS_CONFIGURACAO} label='Configuração Primária' onClick={() => { }} />
+                <InputButton icon={<EditIcon />} value={aeronave?.DS_CONFIGURACAO} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
             </Grid>
         </Grid>
         <Grid container spacing={3} marginTop={2} >
@@ -132,8 +164,19 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                 />
             </Grid>
         </Grid>
-        <DialogCicloInspecao ciclos={listCicloInspecao} open={openDialogCicloInspecao} onClose={onCloseCicloInspecaoDialog} />
-        <DialogConfiguracaoPrimaria />
+        <DialogCicloInspecao
+            ciclos={listCicloInspecao}
+            open={openDialogCicloInspecao}
+            onClose={onCloseCicloInspecaoDialog}
+            onSave={saveCicloInspecaoHandler}
+            isLoading={isLoadingCicloInspecao} />
+        <DialogConfiguracaoPrimaria
+            configuracoes={listConfiguracaoPrimaria}
+            open={openDialogConfiguracaoPrimaria}
+            onClose={onCloseConfiguracaoPrimariaDialog}
+            onSave={saveConfiguracaoPrimariaHandler}
+            isLoading={isLoadingConfiguracaoPrimaria} />
+        {/* <Message color={color} show={openMessage} text={text} clearHandler={() => { setOpenMessage(false) }} /> */}
     </Box>)
 }
 
