@@ -18,20 +18,23 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
     const [listConfiguracaoPrimaria, setListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([]);
     const [listCicloInspecao, setListCicloInspecao] = useState<TabelaManutencao[]>([]);
+    const [filteredListCicloInspecao, setFilteredListCicloInspecao] = useState<TabelaManutencao[]>([])
     const [showMessage, setShowMessage] = useState<boolean>(false);
+    const [text, setText] = useState<string>('');
+    const [color, setColor] = useState<AlertColor>('success');
+    const [selectedCicloInspecao, setSelectedCicloInspecao] = useState<string | undefined>(aeronave?.NM_TABELA);
+    const [selectedConfiguracaoInspecao, setSelectedConfiguracaoInspecao] = useState<string | undefined>(aeronave?.DS_CONFIGURACAO);
     const { sendRequest: sendRequestCicloInspecao } = useHttp();
     const { sendRequest: sendRequestConfiguracaoPrimaria } = useHttp();
     const { sendRequest: saveCicloInspecao, isLoading: isLoadingCicloInspecao } = useHttp();
     const { sendRequest: saveConfiguracaoPrimaria, isLoading: isLoadingConfiguracaoPrimaria } = useHttp();
-    const [text, setText] = useState<string>('');
-    const [color, setColor] = useState<AlertColor>('success');
 
     if (aeronave) {
         useEffect(() => {
             sendRequestCicloInspecao({ url: `siloms/api/cicloinspecao/aeronave/ciclo/material/listar/${aeronave.CD_MATERIAL}` }, (result: TabelaManutencao[]) => {
-                var index = result.findIndex((ciclo) => ciclo.CD_TABELA == aeronave.CD_TABELA);
-                result.splice(index, 1);
+                var filteredArray = result.filter((ciclo) => { return ciclo.CD_TABELA !== aeronave.CD_TABELA })
                 setListCicloInspecao(result);
+                setFilteredListCicloInspecao(filteredArray)
             })
         }, [aeronave])
     }
@@ -47,7 +50,6 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         }, [aeronave])
     }
 
-
     const onCloseCicloInspecaoDialog = () => {
         setOpenDialogCicloInspecao(false)
     }
@@ -56,26 +58,24 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         setOpenDialogConfiguracaoPrimaria(false)
     }
 
-    const saveCicloInspecaoHandler = async () => {
-        (console.log('ciclo handler'))
+    const saveCicloInspecaoHandler = async (cdTabela: number) => {
+        saveCicloInspecao({
+            url: `aeronave/ciclo/alterar/${aeronave?.NR_EQUIPAMENTO}`,
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: { cdTabela: cdTabela }
+        }, (result: { message: string, equipamentoAeronave: EquipamentoAeronave }) => {
+            console.log(result.equipamentoAeronave.NM_TABELA);
+            setSelectedCicloInspecao(result.equipamentoAeronave.NM_TABELA);
+        })
+        setText('Ciclo Alterado com Sucesso!')
+        setShowMessage(true);
         onCloseCicloInspecaoDialog();
     }
 
     const saveConfiguracaoPrimariaHandler = async (cdMaterial: number) => {
-        // console.log(cdMaterial);
-        // saveConfiguracaoPrimaria({
-        //     url: '',
-        //     method: 'PATCH',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: { CD_MATERIAL: cdMaterial }
-        // }, (result: any) => {
-        //     console.log(result)
-        // });
-        // (console.log('configuracao handler'))
-
-        // setOpenMessage(true);
         setText('Configuração Alterada com Sucesso!')
         setShowMessage(true);
         onCloseConfiguracaoPrimariaDialog();
@@ -141,18 +141,18 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                     type='text'
                     shrink
                     inputProps={{ readOnly: true }}
-                    value={aeronave?.VL_PRECO_EQP}
+                    value={aeronave?.VL_PRECO_EQP ?? ''}
                 />
             </Grid>
         </Grid>
         <Grid container spacing={3} marginTop={2} >
             <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={aeronave?.NM_TABELA} label='Ciclos Inspeções' onClick={() => { setOpenDialogCicloInspecao(true) }} />
+                <InputButton icon={<EditIcon />} value={selectedCicloInspecao} label='Ciclos Inspeções' onClick={() => { setOpenDialogCicloInspecao(true) }} />
             </Grid>
             <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={aeronave?.DS_CONFIGURACAO} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
+                <InputButton icon={<EditIcon />} value={selectedConfiguracaoInspecao} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
             </Grid>
         </Grid>
         <Grid container spacing={3} marginTop={2} >
@@ -165,12 +165,12 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                     rows={3}
                     shrink
                     inputProps={{ readOnly: true }}
-                    value={aeronave?.TX_OBS}
+                    value={aeronave?.TX_OBS ?? ''}
                 />
             </Grid>
         </Grid>
         <DialogCicloInspecao
-            ciclos={listCicloInspecao}
+            ciclos={filteredListCicloInspecao}
             open={openDialogCicloInspecao}
             onClose={onCloseCicloInspecaoDialog}
             onSave={saveCicloInspecaoHandler}

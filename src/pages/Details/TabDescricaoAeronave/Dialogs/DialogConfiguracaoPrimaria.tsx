@@ -15,11 +15,11 @@ type Props = {
 
 const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
     const [selectedValue, setSelectedValue] = useState<number>();
-    const [formIsValid, setFormIsValid] = useState<boolean>();
+    const [formIsValid, setFormIsValid] = useState<boolean>(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // var value = (event.target as HTMLInputElement).value;
         const value = parseInt(event.target.value)
+        console.log(value)
         setSelectedValue(value);
     };
 
@@ -32,7 +32,7 @@ const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
     }, [selectedValue])
 
     var content = (<FormControl>
-        <FormLabel id="configuracao-primaria-radio-group">Configurações:</FormLabel>
+        <FormLabel id="configuracao-primaria-radio-group" sx={{ marginBottom: 2 }}>Configurações:</FormLabel>
         <RadioGroup aria-labelledby="configuracao-primaria-radio-group" name="radio-buttons-group" value={selectedValue} onChange={handleChange}>
             {props.configuracoes.map((configuracao) => (
                 <FormControlLabel key={configuracao.DS_CONFIGURACAO} control={<Radio />} label={
@@ -44,7 +44,7 @@ const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
 
     var actions = (
         <><CustomButton onClick={props.onClose} color="primary" variant="text">Cancelar</CustomButton>
-            <CustomButton disabled={formIsValid} color="success" onClick={() => { props.onSave(selectedValue!) }}> Salvar</CustomButton>
+            <CustomButton disabled={!formIsValid} color="success" onClick={() => { props.onSave(selectedValue!) }}> Salvar</CustomButton>
         </>)
 
     return (<CustomDialog title="Alterar Configuração Primária" open={props.open} content={content} actions={actions} handleClose={props.onClose} />)
