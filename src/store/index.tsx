@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice from './auth-slice';
+import occupationAreaSlice from './occupation-area-slice';
 
 export const store = configureStore({
     reducer: {
         auth: authSlice,
+        occupationArea: occupationAreaSlice,
     }
 });
 
