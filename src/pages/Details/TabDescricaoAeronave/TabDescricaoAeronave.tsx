@@ -13,6 +13,11 @@ import ConfiguracaoPrimaria from '../../../models/ConfiguracaoPrimaria';
 import Message from '../../../components/Message';
 import { AlertColor } from '@mui/material/Alert';
 
+type Response = {
+    message: string,
+    equipamentoAeronave: EquipamentoAeronave,
+}
+
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
@@ -66,7 +71,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                 'Content-Type': 'application/json',
             },
             body: { cdTabela: cdTabela }
-        }, (result: { message: string, equipamentoAeronave: EquipamentoAeronave }) => {
+        }, (result: Response) => {
             console.log(result.equipamentoAeronave.NM_TABELA);
             setSelectedCicloInspecao(result.equipamentoAeronave.NM_TABELA);
         })

@@ -37,7 +37,16 @@ const Message: React.FC<MessageType> = (props) => {
     };
 
     return (
-        <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} >
+        <Snackbar
+            open={open}
+            autoHideDuration={4000}
+            onClose={handleClose}
+            style={{ marginTop: '3em' }}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+        >
             <Alert onClose={handleClose} severity={props.color} sx={{ width: '100%' }}>
                 {props.text}
             </Alert>
