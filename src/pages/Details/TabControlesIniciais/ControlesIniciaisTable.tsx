@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { useTheme } from '@emotion/react';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.primary.main,
+        color: theme.palette.common.white,
+        fontWeight: 'bold'
+    }
+}))
 
 function createData(
     name: string,
@@ -26,6 +36,7 @@ const rows = [
 ];
 
 const ControlesIniciaisTable = () => {
+    const theme = useTheme();
     const [selectedRow, setSelectedRow] = useState<string>('');
 
     const onClickTableRow = (selectedRow: string) => {
@@ -34,13 +45,13 @@ const ControlesIniciaisTable = () => {
 
     return (<TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} >
-            <TableHead>
+            <TableHead >
                 <TableRow>
-                    <TableCell>Dessert (100g serving)</TableCell>
-                    <TableCell align="right">Calories</TableCell>
-                    <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                    <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                    <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                    <StyledTableCell>Dessert (100g serving)</StyledTableCell>
+                    <StyledTableCell align="right">Calories</StyledTableCell>
+                    <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
+                    <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
+                    <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>

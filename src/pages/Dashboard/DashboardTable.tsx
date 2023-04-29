@@ -38,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const DashboardTable: React.FC<{ aeronaves: EquipamentoAeronave[] }> = ({ aeronaves }) => {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table" size={'small'}>
+            <Table sx={{ minWidth: 700 }} size={'small'}>
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="center">Id</StyledTableCell>
