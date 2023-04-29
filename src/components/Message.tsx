@@ -29,7 +29,7 @@ const Message: React.FC<MessageType> = (props) => {
         return () => clearTimeout(timeoutId);
     }, []);
 
-    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    const handleClose = (_event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {
             return;
         }

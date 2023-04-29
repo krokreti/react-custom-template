@@ -3,6 +3,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import { useState } from 'react';
 import TabDescricaoAeronave from '../pages/Details/TabDescricaoAeronave/TabDescricaoAeronave';
+import TabControlesIniciais from '../pages/Details/TabControlesIniciais/TabControlesIniciais';
 import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
@@ -78,7 +79,7 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <SecondComponent />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <ThirdComponent />
+                <TabControlesIniciais />
             </TabPanel>
             <TabPanel value={value} index={3}>
                 <FourthComponent />
