@@ -23,16 +23,18 @@ function createData(
     fat: number,
     carbs: number,
     protein: number,
+    teste1: number,
+    teste2: number,
 ) {
-    return { name, calories, fat, carbs, protein };
+    return { name, calories, fat, carbs, protein, teste1, teste2 };
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 1.0, 2.0),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 2, 3),
+    createData('Eclair', 262, 16.0, 24, 6.0, 3, 5),
+    createData('Cupcake', 305, 3.7, 67, 4.3, 5, 7),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8),
 ];
 
 const ControlesIniciaisTable = () => {
@@ -47,11 +49,12 @@ const ControlesIniciaisTable = () => {
         <Table sx={{ minWidth: 650 }} >
             <TableHead >
                 <TableRow>
-                    <StyledTableCell>Dessert (100g serving)</StyledTableCell>
-                    <StyledTableCell align="right">Calories</StyledTableCell>
-                    <StyledTableCell align="right">Fat&nbsp;(g)</StyledTableCell>
-                    <StyledTableCell align="right">Carbs&nbsp;(g)</StyledTableCell>
-                    <StyledTableCell align="right">Protein&nbsp;(g)</StyledTableCell>
+                    <StyledTableCell align="left">Controle</StyledTableCell>
+                    <StyledTableCell align="right">TSN Calculado</StyledTableCell>
+                    <StyledTableCell align="right">TSN Atual</StyledTableCell>
+                    <StyledTableCell align="right">TSN Inicial</StyledTableCell>
+                    <StyledTableCell align="right">TSO</StyledTableCell>
+                    <StyledTableCell align="center">Data Inicial</StyledTableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
@@ -70,6 +73,7 @@ const ControlesIniciaisTable = () => {
                         <TableCell align="right">{row.fat}</TableCell>
                         <TableCell align="right">{row.carbs}</TableCell>
                         <TableCell align="right">{row.protein}</TableCell>
+                        <TableCell align="center">{row.teste1}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>

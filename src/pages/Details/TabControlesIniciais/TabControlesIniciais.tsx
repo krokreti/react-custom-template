@@ -8,15 +8,15 @@ import ControlesIniciaisTable from "./ControlesIniciaisTable";
 const TabControlesIniciais = () => {
     return (<>
         <Box display={'flex'} gap={4} marginBottom={4}>
-            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
                 <CustomButton onClick={() => { }} >{<PostAddIcon />}</CustomButton>
                 Somar
             </Box>
-            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
                 <CustomButton onClick={() => { }} >{<PrintIcon />}</CustomButton>
                 Imprimir
             </Box>
-            <Box display={'flex'} flexDirection={'column'} alignItems={'center'}>
+            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
                 <CustomButton onClick={() => { }} >{<FormatListNumberedIcon />}</CustomButton>
                 Excel
             </Box>
