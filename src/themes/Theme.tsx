@@ -50,11 +50,11 @@ declare module '@mui/material/styles' {
         },
         background?: {
             default?: string,
-        }
+        },
     }
 }
 
-const Theme = createTheme({
+export const lightTheme = createTheme({
     status: {
         danger: orange[500],
     },
@@ -62,6 +62,13 @@ const Theme = createTheme({
         primary: {
             main: '#1976d2',
         },
+        background: {
+            default: '#EEF2F6',
+        },
+        secondary: {
+            main: '#f50057',
+        },
+
     },
     primary: {
         main: '#1976d2',
@@ -71,8 +78,22 @@ const Theme = createTheme({
     },
     background: {
         default: '#EEF2F6'
-    }
+    },
 });
 
+export const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+        primary: {
+            main: '#1976d2'
+        },
+        background: {
+            default: '#121212'
+        },
 
-export default Theme;
+    },
+    primary: {
+        main: '#121212'
+    },
+})
+

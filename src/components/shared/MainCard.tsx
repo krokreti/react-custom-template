@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, Divider, Typography, Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles'
 
 type CardType = {
     children: React.ReactNode,
@@ -20,13 +21,14 @@ const headerSX = {
 };
 
 const MainCard: React.FC<CardType> = (props) => {
+    const theme = useTheme();
     return (
         <Card
             elevation={props.elevation ? props.elevation : 3}
             sx={{
                 borderRadius: 2,
                 border: '1px solid',
-                borderColor: '#FFF',
+                borderColor: 'transparent',
                 margin: (props.margin ? props.margin : 3),
                 boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
                 // padding: (props.padding ? props.padding : 3),

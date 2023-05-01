@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
         ]
     },
     {
-        path: 'area-atuacao',
+        path: '/area-atuacao',
         element: <OccupationArea />,
         children: [
             {

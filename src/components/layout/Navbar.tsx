@@ -11,6 +11,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import ProfileAvatar from './ProfileAvatar';
 import CustomDrawer from './CustomDrawer';
 import { Link } from 'react-router-dom';
+import ThemeController from './ThemeController';
 
 const drawerWidth = 240;
 
@@ -40,6 +41,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
+    background: theme.primary.main,
     transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -82,8 +84,10 @@ const NavBar: React.FC<Children> = (props) => {
                             </Link>
                         </Typography>
                     </Box>
-                    <ProfileAvatar />
-
+                    <Box display={'flex'} alignItems={'center'}>
+                        <ThemeController />
+                        <ProfileAvatar />
+                    </Box>
                 </Toolbar>
             </AppBar>
             <Main open={open}>

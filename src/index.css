@@ -5,14 +5,7 @@
 }
 
 body {
-  background-color: #EEF2F6 !important;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-
-.App {
-  background-color: #EEF2F6;
+  /* background-color: #EEF2F6 !important; */
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
