@@ -10,6 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/pt-br';
 
+
 function App() {
   const dispatch = useAppDispatch();
   const message = (useAppSelector(state => state.auth.message));
@@ -22,7 +23,8 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <ThemeProvider theme={Theme}>
-        <Box className="App" bgcolor={Theme.background.default} height={'100vh'} >
+        {/* bgcolor={Theme.background.default} */}
+        <Box className="App"  >
           <NavBar>
           </NavBar>
           <Outlet />

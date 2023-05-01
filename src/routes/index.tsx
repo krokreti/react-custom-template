@@ -3,6 +3,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Details from '../pages/Details/Details';
 import App from "../App";
 import ErrorPage from "../pages/Error/ErrorPage";
+import OccupationArea from "../pages/OccupationArea/OccupationArea";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +20,16 @@ export const router = createBrowserRouter([
                 path: 'detalhes-aeronave/:id',
                 element: <Details />
             },
+        ]
+    },
+    {
+        path: 'area-atuacao',
+        element: <OccupationArea />,
+        children: [
+            {
+                index: true,
+                element: <OccupationArea />
+            }
         ]
     }
 ])
