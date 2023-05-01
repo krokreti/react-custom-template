@@ -27,8 +27,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <ThemeProvider theme={theme}>
         <Box className="App"  >
-          <NavBar>
-          </NavBar>
+          <NavBar />
           <Outlet />
         </Box>
       </ThemeProvider>

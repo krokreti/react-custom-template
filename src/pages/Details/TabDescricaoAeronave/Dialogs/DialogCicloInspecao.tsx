@@ -41,7 +41,7 @@ const DialogCicloInspecao: React.FC<Props> = (props) => {
     </FormControl>);
 
     var actions = (<>
-        <CustomButton onClick={props.onClose} color="primary" variant="text">Cancelar</CustomButton>
+        <CustomButton onClick={props.onClose} color="primary" variant="text" >Cancelar</CustomButton>
         <CustomButton disabled={!formIsValid} color="success" onClick={() => { props.onSave(selectedValue!) }}> Salvar</CustomButton>
     </>);
 

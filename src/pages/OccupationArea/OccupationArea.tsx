@@ -65,7 +65,7 @@ const OccupationArea = () => {
                 </Select>
             </FormControl>
 
-            <CustomButton onClick={onClickHandler} disabled={!isFormValid}>
+            <CustomButton onClick={onClickHandler} disabled={!isFormValid} >
                 Começar!
             </CustomButton>
         </Box>

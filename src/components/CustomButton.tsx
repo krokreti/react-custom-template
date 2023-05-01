@@ -10,7 +10,7 @@ type ButtonProps = {
     startIcon?: React.ReactNode,
     endIcon?: React.ReactNode,
     color?: ColorType
-    sx?: {}
+    sx?: {},
     onClick: () => void,
 }
 
@@ -25,6 +25,7 @@ const CustomButton: React.FC<ButtonProps> = (props) => {
             onClick={props.onClick}
             color={props.color ?? "primary"}
             sx={props.sx}
+            style={{ fontWeight: "bold" }}
         >
             {props.children}
         </Button>

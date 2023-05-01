@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     },
     {
         path: '/area-atuacao',
-        element: <OccupationArea />,
+        element: <App />,
         children: [
             {
                 index: true,

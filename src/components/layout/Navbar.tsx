@@ -1,18 +1,17 @@
 import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Children from '../../models/Children';
-import FlightIcon from '@mui/icons-material/Flight';
 import ProfileAvatar from './ProfileAvatar';
 import CustomDrawer from './CustomDrawer';
 import { Link } from 'react-router-dom';
 import ThemeController from './ThemeController';
 import { useAppSelector } from '../../hooks/redux-hooks';
+import { useMediaQuery } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -69,9 +68,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const NavBar: React.FC<Children> = (props) => {
     const isLightMode = useAppSelector(state => state.theme.isLightMode);
+    const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -88,7 +87,7 @@ const NavBar: React.FC<Children> = (props) => {
                         </Typography>
                     </Box>
                     <Box display={'flex'} alignItems={'center'}>
-                        <ThemeController />
+                        {!isSmallScreen && (<ThemeController />)}
                         <ProfileAvatar />
                     </Box>
                 </Toolbar>

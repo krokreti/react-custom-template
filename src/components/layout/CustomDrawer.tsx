@@ -14,12 +14,27 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import ArticleIcon from '@mui/icons-material/Article';
 import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
-
+import NightsStayIcon from '@mui/icons-material/NightsStay';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { themeActions } from "../../store/theme-slice";
 
 
 const CustomDrawer = () => {
     const navigate = useNavigate();
     const [openDrawer, setOpenDrawer] = useState<boolean>();
+    const dispatch = useAppDispatch();
+    const isLightMode = (useAppSelector(state => state.theme.isLightMode));
+
+    const toggleTheme = () => {
+        if (isLightMode) {
+            dispatch(themeActions.changeTheme('dark'));
+        } else {
+            dispatch(themeActions.changeTheme('light'));
+        }
+    }
 
     const navigateHandler = (route: string) => {
         navigate(route);
@@ -67,6 +82,22 @@ const CustomDrawer = () => {
                     </ListItem>
                 ))}
             </List>
+            <Divider />
+            <Box display={'flex'} justifyContent={'center'} marginTop={3}>
+                <ToggleButtonGroup
+                    color='standard'
+                    onChange={toggleTheme}
+                    value={isLightMode}
+                    exclusive>
+                    <ToggleButton value={true} aria-label="light" color='warning'>
+                        <WbSunnyIcon /> Light
+                    </ToggleButton>
+                    <ToggleButton value={false} aria-label="dark" color='info'>
+                        <NightsStayIcon /> Dark
+                    </ToggleButton>
+                </ToggleButtonGroup>
+            </Box>
+
         </Box>
     );
 
