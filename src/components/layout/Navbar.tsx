@@ -12,6 +12,7 @@ import ProfileAvatar from './ProfileAvatar';
 import CustomDrawer from './CustomDrawer';
 import { Link } from 'react-router-dom';
 import ThemeController from './ThemeController';
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const drawerWidth = 240;
 
@@ -42,6 +43,7 @@ const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
     background: theme.primary.main,
+
     transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -66,6 +68,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavBar: React.FC<Children> = (props) => {
+    const isLightMode = useAppSelector(state => state.theme.isLightMode);
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -73,7 +76,7 @@ const NavBar: React.FC<Children> = (props) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} sx={{ boxShadow: isLightMode ? theme.shadows[2] : 'none' }}>
                 <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
                     <Box display={'flex'} alignItems={'center'}>
                         <CustomDrawer />
