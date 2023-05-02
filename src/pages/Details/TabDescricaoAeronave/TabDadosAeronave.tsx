@@ -17,13 +17,14 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
     const [listConfiguracaoPrimaria, setListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([]);
+    const [filteredListConfiguracaoPrimaria, setFilteredListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([])
     const [listCicloInspecao, setListCicloInspecao] = useState<TabelaManutencao[]>([]);
     const [filteredListCicloInspecao, setFilteredListCicloInspecao] = useState<TabelaManutencao[]>([])
     const [showMessage, setShowMessage] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
     const [color, setColor] = useState<AlertColor>('success');
     const [selectedCicloInspecao, setSelectedCicloInspecao] = useState<string | undefined>(aeronave?.NM_TABELA);
-    const [selectedConfiguracaoInspecao, setSelectedConfiguracaoInspecao] = useState<string | undefined>(aeronave?.DS_CONFIGURACAO);
+    const [selectedConfiguracaoPrimaria, setSelectedConfiguracaoPrimaria] = useState<string | undefined>(aeronave?.DS_CONFIGURACAO);
     const { sendRequest: sendRequestCicloInspecao } = useHttp();
     const { sendRequest: sendRequestConfiguracaoPrimaria } = useHttp();
     const { sendRequest: saveCicloInspecao, isLoading: isLoadingCicloInspecao } = useHttp();
@@ -32,22 +33,22 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
     if (aeronave) {
         useEffect(() => {
             sendRequestCicloInspecao({ url: `siloms/api/cicloinspecao/aeronave/ciclo/material/listar/${aeronave.CD_MATERIAL}` }, (result: TabelaManutencao[]) => {
-                var filteredArray = result.filter((ciclo) => { return ciclo.CD_TABELA !== aeronave.CD_TABELA })
+                var cicloEscolhido = result.find((ciclo) => selectedCicloInspecao == `${ciclo.CD_TABELA} - ${ciclo.DS_TABELA}`)
+                var filteredArray = result.filter((ciclo) => { return ciclo.CD_TABELA != cicloEscolhido?.CD_TABELA })
                 setListCicloInspecao(result);
-                setFilteredListCicloInspecao(filteredArray)
+                setFilteredListCicloInspecao(filteredArray);
             })
-        }, [aeronave])
+        }, [aeronave, selectedCicloInspecao])
     }
 
     if (aeronave) {
         useEffect(() => {
             sendRequestConfiguracaoPrimaria({ url: `siloms/api/configuracaoprimaria/aeronave/configuracao/material/${aeronave.CD_MATERIAL}` }, (result: ConfiguracaoPrimaria[]) => {
-                var index = result.findIndex((configuracao) => aeronave.DS_CONFIGURACAO == configuracao.DS_CONFIGURACAO)
-                result.splice(index, 1);
-                console.log(result)
+                var filteredArray = result.filter((configuracao) => { return configuracao.DS_CONFIGURACAO !== selectedConfiguracaoPrimaria })
                 setListConfiguracaoPrimaria(result);
+                setFilteredListConfiguracaoPrimaria(filteredArray);
             })
-        }, [aeronave])
+        }, [aeronave, selectedConfiguracaoPrimaria])
     }
 
     const onCloseCicloInspecaoDialog = () => {
@@ -66,19 +67,29 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                 'Content-Type': 'application/json',
             },
             body: { cdTabela: cdTabela }
-        }, (result: { message: string, equipamentoAeronave: EquipamentoAeronave }) => {
-            console.log(result.equipamentoAeronave.NM_TABELA);
-            setSelectedCicloInspecao(result.equipamentoAeronave.NM_TABELA);
+        }, (result: { message: string, EquipamentoAeronave: EquipamentoAeronave }) => {
+            console.log(result.EquipamentoAeronave);
+            setSelectedCicloInspecao(result.EquipamentoAeronave.NM_TABELA);
+            setText(result.message);
+            setShowMessage(true);
+            onCloseCicloInspecaoDialog();
         })
-        setText('Ciclo Alterado com Sucesso!')
-        setShowMessage(true);
-        onCloseCicloInspecaoDialog();
     }
 
-    const saveConfiguracaoPrimariaHandler = async (cdMaterial: number) => {
-        setText('Configuração Alterada com Sucesso!')
-        setShowMessage(true);
-        onCloseConfiguracaoPrimariaDialog();
+    const saveConfiguracaoPrimariaHandler = async (nrConfiguracao: number) => {
+        saveConfiguracaoPrimaria({
+            url: `equipamento/configuracao/alterar/${aeronave?.NR_EQUIPAMENTO}`,
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: { nrConfiguracao: nrConfiguracao }
+        }, (result: { message: string, ConfiguracaoPrimaria: ConfiguracaoPrimaria }) => {
+            setSelectedConfiguracaoPrimaria(result.ConfiguracaoPrimaria.DS_CONFIGURACAO)
+            setText(result.message);
+            setShowMessage(true);
+            onCloseConfiguracaoPrimariaDialog();
+        })
     }
 
     return (<Box sx={{ flexGrow: 1 }}>
@@ -152,7 +163,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             </Grid>
             <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={selectedConfiguracaoInspecao} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
+                <InputButton icon={<EditIcon />} value={selectedConfiguracaoPrimaria} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
             </Grid>
         </Grid>
         <Grid container spacing={3} marginTop={2} >
@@ -176,7 +187,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             onSave={saveCicloInspecaoHandler}
             isLoading={isLoadingCicloInspecao} />
         <DialogConfiguracaoPrimaria
-            configuracoes={listConfiguracaoPrimaria}
+            configuracoes={filteredListConfiguracaoPrimaria}
             open={openDialogConfiguracaoPrimaria}
             onClose={onCloseConfiguracaoPrimariaDialog}
             onSave={saveConfiguracaoPrimariaHandler}

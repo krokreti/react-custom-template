@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import { useState } from 'react';
 import TabDadosAeronave from '../pages/Details/TabDescricaoAeronave/TabDadosAeronave';
 import TabControlesIniciais from '../pages/Details/TabControlesIniciais/TabControlesIniciais';
-import SecondComponent from '../pages/Details/TabTwo/SecondComponent';
+import TabPatrimonio from '../pages/Details/TabPatrimonio/TabPatrimonio';
+import SecondComponent from '../pages/Details/TabPatrimonio/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
 import TableRowsIcon from '@mui/icons-material/TableRows';
@@ -76,7 +77,7 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <TabDadosAeronave aeronave={aeronave} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <SecondComponent />
+                <TabPatrimonio />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <TabControlesIniciais />

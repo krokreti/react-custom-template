@@ -16,7 +16,7 @@ const retrieveStoredTheme = () => {
     }
     return {
         theme: initialTheme,
-        isLightMode: initialTheme == 'light' ? true : false,
+        isLightMode: (initialTheme == 'light'),
     }
 }
 

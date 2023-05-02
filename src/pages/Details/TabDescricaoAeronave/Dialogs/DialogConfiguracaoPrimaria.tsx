@@ -10,7 +10,7 @@ type Props = {
     open: boolean,
     isLoading: boolean,
     onClose: () => void,
-    onSave: (cdMaterial: number) => void,
+    onSave: (nrConfiguracao: number) => void,
 }
 
 const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
@@ -19,7 +19,6 @@ const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(event.target.value)
-        console.log(value)
         setSelectedValue(value);
     };
 
@@ -32,12 +31,13 @@ const DialogConfiguracaoPrimaria: React.FC<Props> = (props) => {
     }, [selectedValue])
 
     var content = (<FormControl>
-        <FormLabel id="configuracao-primaria-radio-group" sx={{ marginBottom: 2 }}>Configurações:</FormLabel>
-        <RadioGroup aria-labelledby="configuracao-primaria-radio-group" name="radio-buttons-group" value={selectedValue} onChange={handleChange}>
+        <FormLabel id="configuracao-primaria-radio-group" sx={{ marginBottom: 2 }} >Configurações:</FormLabel>
+        <RadioGroup aria-labelledby="configuracao-primaria-radio-group" name="radio-buttons-group" onChange={handleChange}>
             {props.configuracoes.map((configuracao) => (
-                <FormControlLabel key={configuracao.DS_CONFIGURACAO} control={<Radio />} label={
-                    <Typography fontWeight={'bold'}>{configuracao.DS_CONFIGURACAO}</Typography>
-                } value={configuracao.NR_CONFIGURACAO} />
+                <FormControlLabel key={configuracao.DS_CONFIGURACAO} control={<Radio />}
+                    label={
+                        <Typography fontWeight={'bold'}>{configuracao.DS_CONFIGURACAO}</Typography>
+                    } value={configuracao.NR_CONFIGURACAO} />
             ))}
         </RadioGroup>
     </FormControl>);

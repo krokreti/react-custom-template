@@ -75,7 +75,7 @@ const NavBar: React.FC<Children> = (props) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar position="fixed" open={open} sx={{ boxShadow: isLightMode ? theme.shadows[2] : 'none' }}>
+            <AppBar position="fixed" open={open} sx={{ boxShadow: isLightMode ? theme.shadows[2] : 'none' }} >
                 <Toolbar sx={{ display: "flex", justifyContent: 'space-between' }}>
                     <Box display={'flex'} alignItems={'center'}>
                         <CustomDrawer />
