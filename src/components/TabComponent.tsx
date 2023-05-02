@@ -77,7 +77,7 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <TabDadosAeronave aeronave={aeronave} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <TabPatrimonio />
+                <TabPatrimonio aeronave={aeronave} />
             </TabPanel>
             <TabPanel value={value} index={2}>
                 <TabControlesIniciais />

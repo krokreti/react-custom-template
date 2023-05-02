@@ -114,7 +114,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         rows={3}
                         shrink
                         inputProps={{ readOnly: true }}
-                        value={aeronave?.TX_DISPONIBILIDADE}
+                        value={aeronave?.TX_DISPONIBILIDADE ?? ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={4} md={2} >
@@ -124,7 +124,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                         type='text'
                         shrink
                         inputProps={{ readOnly: true }}
-                        value={aeronave?.DS_SITUACAO_ATUAL}
+                        value={aeronave?.DS_SITUACAO_ATUAL ?? ""}
                     />
                 </Grid>
                 <Grid item xs={12} sm={4} md={2} display={'flex'} justifyContent={'center'} alignItems={'center'} height={'fit-content'}>
