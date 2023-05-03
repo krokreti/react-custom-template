@@ -8,6 +8,7 @@ import TableNaoCalendaricos from "./Tables/TableNaoCalendaricos";
 import TableCalendaricos from './Tables/TableCalendaricos';
 import DialogSomar from './Dialogs/DialogSomar';
 import LoadingCard from '../../../components/LoadingCard';
+import ErrorCard from '../../../components/ErrorCard';
 import ControleEquipamento from '../../../models/ControleEquipamento';
 import ControleInicialCalendarico from '../../../models/ControleInicialCalendarico';
 
@@ -34,8 +35,9 @@ const TabControlesIniciais = () => {
     }
 
     return (<>
-        {naoCalendaricoIsLoading || calendaricoIsLoading && (<LoadingCard />)}
-        {!naoCalendaricoIsLoading && !calendaricoIsLoading && (<>
+        {(naoCalendaricoIsLoading || calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (<LoadingCard />)}
+        {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && (errorCalendarico || errorNaoCalendarico) && (<ErrorCard message={errorCalendarico} />)}
+        {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (<>
             <Box display={'flex'} gap={4} marginBottom={4}>
                 <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
                     <CustomButton onClick={() => { setOpenDialogSomar(true) }} >{<PostAdd />}</CustomButton>
