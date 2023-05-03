@@ -5,6 +5,7 @@ import { useState } from 'react';
 import TabDadosAeronave from '../pages/Details/TabDescricaoAeronave/TabDadosAeronave';
 import TabControlesIniciais from '../pages/Details/TabControlesIniciais/TabControlesIniciais';
 import TabPatrimonio from '../pages/Details/TabPatrimonio/TabPatrimonio';
+import TabManutencoesRealizadas from '../pages/Details/TabManutencoesRealizadas/TabManutencoesRealizadas';
 import SecondComponent from '../pages/Details/TabPatrimonio/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
@@ -83,7 +84,7 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <TabControlesIniciais />
             </TabPanel>
             <TabPanel value={value} index={3}>
-                <FourthComponent />
+                <TabManutencoesRealizadas />
             </TabPanel>
         </Box>
     );

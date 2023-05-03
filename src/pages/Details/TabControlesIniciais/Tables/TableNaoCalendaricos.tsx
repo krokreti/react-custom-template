@@ -7,42 +7,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import * as dayjs from 'dayjs';
+import ControleEquipamento from '../../../../models/ControleEquipamento';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.primary.main,
+        backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
         fontWeight: 'bold'
     }
 }))
 
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-    teste1: number,
-    teste2: number,
-) {
-    return { name, calories, fat, carbs, protein, teste1, teste2 };
-}
 
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 1.0, 2.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 2, 3),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3, 5),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 5, 7),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8),
-];
-
-const ControlesIniciaisTable = () => {
-    const [selectedRow, setSelectedRow] = useState<string>('');
-
-    const onClickTableRow = (selectedRow: string) => {
-        setSelectedRow(selectedRow)
-    }
-
+const TableNaoCalendaricos: React.FC<{ controles: ControleEquipamento[] }> = ({ controles }) => {
     return (<TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} >
             <TableHead >
@@ -56,22 +33,19 @@ const ControlesIniciaisTable = () => {
                 </TableRow>
             </TableHead>
             <TableBody>
-                {rows.map((row) => (
+                {controles.map((controle) => (
                     <TableRow
-                        hover={true}
-                        selected={selectedRow == row.name}
-                        key={row.name}
+                        key={controle.DS_CONTROLE}
                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        onClick={() => { onClickTableRow(row.name) }}
                     >
                         <TableCell component="th" scope="row">
-                            {row.name}
+                            {controle.DS_CONTROLE}
                         </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
-                        <TableCell align="right">{row.fat}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.protein}</TableCell>
-                        <TableCell align="center">{row.teste1}</TableCell>
+                        <TableCell align="right">{controle.VL_DESDE_NOVO}</TableCell>
+                        <TableCell align="right">{controle.VL_DESDE_NOVO}</TableCell>
+                        <TableCell align="right">{controle.VL_DESDE_NOVO_INICIAL}</TableCell>
+                        <TableCell align="right">{controle.VL_TSO}</TableCell>
+                        <TableCell align="center">{dayjs(controle.DT_INICIAL).format('DD/MM/YYYY')}</TableCell>
                     </TableRow>
                 ))}
             </TableBody>
@@ -79,4 +53,4 @@ const ControlesIniciaisTable = () => {
     </TableContainer>)
 }
 
-export default ControlesIniciaisTable;
+export default TableNaoCalendaricos;

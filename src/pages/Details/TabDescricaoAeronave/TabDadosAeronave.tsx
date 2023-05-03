@@ -16,9 +16,7 @@ import { AlertColor } from '@mui/material/Alert';
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
-    const [listConfiguracaoPrimaria, setListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([]);
     const [filteredListConfiguracaoPrimaria, setFilteredListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([])
-    const [listCicloInspecao, setListCicloInspecao] = useState<TabelaManutencao[]>([]);
     const [filteredListCicloInspecao, setFilteredListCicloInspecao] = useState<TabelaManutencao[]>([])
     const [showMessage, setShowMessage] = useState<boolean>(false);
     const [text, setText] = useState<string>('');
@@ -35,7 +33,6 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             sendRequestCicloInspecao({ url: `siloms/api/cicloinspecao/aeronave/ciclo/material/listar/${aeronave.CD_MATERIAL}` }, (result: TabelaManutencao[]) => {
                 var cicloEscolhido = result.find((ciclo) => selectedCicloInspecao == `${ciclo.CD_TABELA} - ${ciclo.DS_TABELA}`)
                 var filteredArray = result.filter((ciclo) => { return ciclo.CD_TABELA != cicloEscolhido?.CD_TABELA })
-                setListCicloInspecao(result);
                 setFilteredListCicloInspecao(filteredArray);
             })
         }, [aeronave, selectedCicloInspecao])
@@ -45,7 +42,6 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         useEffect(() => {
             sendRequestConfiguracaoPrimaria({ url: `siloms/api/configuracaoprimaria/aeronave/configuracao/material/${aeronave.CD_MATERIAL}` }, (result: ConfiguracaoPrimaria[]) => {
                 var filteredArray = result.filter((configuracao) => { return configuracao.DS_CONFIGURACAO !== selectedConfiguracaoPrimaria })
-                setListConfiguracaoPrimaria(result);
                 setFilteredListConfiguracaoPrimaria(filteredArray);
             })
         }, [aeronave, selectedConfiguracaoPrimaria])
