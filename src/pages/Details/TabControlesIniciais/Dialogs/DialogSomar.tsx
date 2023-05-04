@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
 import CustomButton from '../../../../components/CustomButton';
 import CustomDialog from "../../../../components/CustomDialog";
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TableTotaisControle from '../Tables/TableTotaisControle';
 import ControlePeriodo from '../../../../models/ControlePeriodo';

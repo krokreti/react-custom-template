@@ -6,6 +6,7 @@ import TabDadosAeronave from '../pages/Details/TabDescricaoAeronave/TabDadosAero
 import TabControlesIniciais from '../pages/Details/TabControlesIniciais/TabControlesIniciais';
 import TabPatrimonio from '../pages/Details/TabPatrimonio/TabPatrimonio';
 import TabManutencoesRealizadas from '../pages/Details/TabManutencoesRealizadas/TabManutencoesRealizadas';
+import TabDiretivas from '../pages/Details/TabDiretivas/TabDiretivas';
 import SecondComponent from '../pages/Details/TabPatrimonio/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
@@ -13,6 +14,11 @@ import TableRowsIcon from '@mui/icons-material/TableRows';
 import AppsIcon from '@mui/icons-material/Apps';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
+import TuneIcon from '@mui/icons-material/Tune';
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
+import CoPresentIcon from '@mui/icons-material/CoPresent';
 import EquipamentoAeronave from '../models/EquipamentoAeronave';
 
 interface TabPanelProps {
@@ -72,6 +78,11 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                     <Tab label="Patrimônio" icon={<AppsIcon />} iconPosition='start' {...a11yProps(1)} />
                     <Tab label="Controles Iniciais" icon={<SettingsIcon />} iconPosition='start' {...a11yProps(2)} />
                     <Tab label="Manutenções Realizadas" icon={<FormatListNumberedIcon />} iconPosition='start' {...a11yProps(3)} />
+                    <Tab label="Diretivas" icon={<OfflineBoltIcon />} iconPosition='start' {...a11yProps(4)} />
+                    <Tab label="Disponibilidade" icon={<EventAvailableIcon />} iconPosition='start' {...a11yProps(5)} />
+                    <Tab label="Configuração Real" icon={<TuneIcon />} iconPosition='start' {...a11yProps(6)} />
+                    <Tab label="Utilização" icon={<FlightTakeoffIcon />} iconPosition='start' {...a11yProps(7)} />
+                    <Tab label="Ordem de Serviço" icon={<CoPresentIcon />} iconPosition='start' {...a11yProps(8)} />
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0} >
@@ -84,6 +95,21 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <TabControlesIniciais />
             </TabPanel>
             <TabPanel value={value} index={3}>
+                <TabManutencoesRealizadas />
+            </TabPanel>
+            <TabPanel value={value} index={4}>
+                <TabDiretivas />
+            </TabPanel>
+            <TabPanel value={value} index={5}>
+                <TabManutencoesRealizadas />
+            </TabPanel>
+            <TabPanel value={value} index={6}>
+                <TabManutencoesRealizadas />
+            </TabPanel>
+            <TabPanel value={value} index={7}>
+                <TabManutencoesRealizadas />
+            </TabPanel>
+            <TabPanel value={value} index={8}>
                 <TabManutencoesRealizadas />
             </TabPanel>
         </Box>

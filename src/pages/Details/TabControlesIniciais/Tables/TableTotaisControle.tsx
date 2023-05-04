@@ -11,7 +11,7 @@ import ControlePeriodo from '../../../../models/ControlePeriodo';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.primary.main,
+        backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
         fontWeight: 'bold'
     }
@@ -24,7 +24,7 @@ const TableTotaisControle: React.FC<{ controles: ControlePeriodo[] }> = ({ contr
     return (<TableContainer component={Paper}>
         <Table sx={{ minWidth: 550 }} >
             <TableHead >
-                <TableRow>
+                <TableRow >
                     <StyledTableCell align="left">Controle</StyledTableCell>
                     <StyledTableCell align="right">TSN Calculado</StyledTableCell>
                     <StyledTableCell align="right">Total do Dia</StyledTableCell>
