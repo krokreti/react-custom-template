@@ -1,3 +1,4 @@
+import * as dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useHttp from '../../../hooks/use-http';
@@ -11,14 +12,18 @@ import LoadingCard from '../../../components/LoadingCard';
 import ErrorCard from '../../../components/ErrorCard';
 import ControleEquipamento from '../../../models/ControleEquipamento';
 import ControleInicialCalendarico from '../../../models/ControleInicialCalendarico';
+import ControlePeriodo from '../../../models/ControlePeriodo';
 
 const TabControlesIniciais = () => {
     const { id: nrEquipamento } = useParams();
+    const [selectedDate, setSelectedDate] = useState<string>(dayjs())
     const [openDialogSomar, setOpenDialogSomar] = useState<boolean>(false);
     const [calendaricos, setCalendaricos] = useState<ControleInicialCalendarico[]>([])
     const [naoCalendaricos, setNaoCalendaricos] = useState<ControleEquipamento[]>([])
+    const [periodo, setPeriodo] = useState<ControlePeriodo[]>([]);
     const { sendRequest: sendNaoCalendaricosRequest, isLoading: naoCalendaricoIsLoading, error: errorNaoCalendarico } = useHttp();
     const { sendRequest: sendCalendaricosRequest, isLoading: calendaricoIsLoading, error: errorCalendarico } = useHttp();
+    const { sendRequest: sendSomarPeriodoRequest, isLoading: SomarPeriodoIsLoading, error: errorSomar } = useHttp();
 
     useEffect(() => {
         sendNaoCalendaricosRequest({ url: `aeronave/controle/${nrEquipamento}` }, (result: ControleEquipamento[]) => {
@@ -30,8 +35,23 @@ const TabControlesIniciais = () => {
         })
     }, [])
 
+    useEffect(() => {
+        sendSomarPeriodoRequest({
+            url: `aeronave/controle/calendarico/periodo/${nrEquipamento}`,
+            method: 'POST',
+            body: { dtInicial: dayjs(selectedDate).format("MM/DD/YYYY") },
+            headers: { 'Content-Type': 'application/json', },
+        }, (data: { message: string, controlePeriodo: ControlePeriodo[] }) => {
+            setPeriodo(data.controlePeriodo);
+        })
+    }, [selectedDate])
+
     const onCloseDialogSomar = () => {
         setOpenDialogSomar(false);
+    }
+
+    const onDateChange = (newDate: string) => {
+        setSelectedDate(newDate);
     }
 
     return (<>
@@ -71,7 +91,7 @@ const TabControlesIniciais = () => {
             </Typography>
             <TableCalendaricos controles={calendaricos} />
         </>)}
-        <DialogSomar open={openDialogSomar} onClose={onCloseDialogSomar} />
+        <DialogSomar open={openDialogSomar} onClose={onCloseDialogSomar} selectedDate={selectedDate} onDataChange={onDateChange} controlePeriodo={periodo} />
     </>)
 }
 
