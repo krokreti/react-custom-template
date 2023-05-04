@@ -62,7 +62,7 @@ const DetailsForm: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ 
                     />
                 </Grid>
             </Grid>
-            <Grid container gap={3} spacing={2} sx={{ marginTop: 3 }}>
+            <Grid container spacing={3} sx={{ marginTop: 3 }}>
                 <Grid item xs={12} sm={4} md={2} >
                     <Input
                         id='pn'
