@@ -7,6 +7,7 @@ import TabControlesIniciais from '../pages/Details/TabControlesIniciais/TabContr
 import TabPatrimonio from '../pages/Details/TabPatrimonio/TabPatrimonio';
 import TabManutencoesRealizadas from '../pages/Details/TabManutencoesRealizadas/TabManutencoesRealizadas';
 import TabDiretivas from '../pages/Details/TabDiretivas/TabDiretivas';
+import TabDisponibilidade from '../pages/Details/TabDisponibilidade/TabDisponibilidade';
 import SecondComponent from '../pages/Details/TabPatrimonio/SecondComponent';
 import ThirdComponent from '../pages/Details/TabThree/ThirdComponent';
 import FourthComponent from '../pages/Details/TabFour/FourthComponent';
@@ -101,7 +102,7 @@ const TabComponent: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({
                 <TabDiretivas />
             </TabPanel>
             <TabPanel value={value} index={5}>
-                <TabManutencoesRealizadas />
+                <TabDisponibilidade />
             </TabPanel>
             <TabPanel value={value} index={6}>
                 <TabManutencoesRealizadas />
