@@ -12,6 +12,8 @@ import IconButton from '@mui/material/IconButton';
 import EquipamentoAeronave from '../../models/EquipamentoAeronave';
 import { Link } from "react-router-dom";
 import FlightIcon from '@mui/icons-material/Flight';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -35,10 +37,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     },
 }));
 
-const DashboardTable: React.FC<{ aeronaves: EquipamentoAeronave[] }> = ({ aeronaves }) => {
-    return (
+type DashboardType = {
+    aeronaves: EquipamentoAeronave[],
+    perPage?: number,
+    currentPage: number,
+    changePageHandler: (_event: React.ChangeEvent<unknown>, page: number) => void,
+}
+
+const DashboardTable: React.FC<DashboardType> = ({ aeronaves, perPage, currentPage, changePageHandler }) => {
+    return (<>
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700 }} size={'small'}>
+            <Table sx={{ minWidth: 700 }} >
                 <TableHead>
                     <TableRow>
                         <StyledTableCell align="center">Id</StyledTableCell>
@@ -85,6 +94,10 @@ const DashboardTable: React.FC<{ aeronaves: EquipamentoAeronave[] }> = ({ aerona
                 </TableBody>
             </Table>
         </TableContainer>
+        <Stack spacing={2} marginTop={4} display={'flex'} direction="row" justifyContent="center">
+            <Pagination color={'primary'} count={perPage} page={currentPage} onChange={changePageHandler} />
+        </Stack>
+    </>
     );
 }
 
