@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import Input from "../../../components/Input";
 import EquipamentoAeronave from '../../../models/EquipamentoAeronave';
 import { numberToCurrency } from '../../../components/helpers/NumberToCurrency';

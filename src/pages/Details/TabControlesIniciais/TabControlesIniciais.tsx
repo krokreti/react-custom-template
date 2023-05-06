@@ -13,17 +13,15 @@ import ErrorCard from '../../../components/ErrorCard';
 import ControleEquipamento from '../../../models/ControleEquipamento';
 import ControleInicialCalendarico from '../../../models/ControleInicialCalendarico';
 import ControlePeriodo from '../../../models/ControlePeriodo';
-import Message from '../../../components/Message';
+import { enqueueSnackbar } from 'notistack';
 
 const TabControlesIniciais = () => {
     const { id: nrEquipamento } = useParams();
-    const [selectedDate, setSelectedDate] = useState<string>(dayjs())
+    const [selectedDate, setSelectedDate] = useState<string>(dayjs().toISOString())
     const [openDialogSomar, setOpenDialogSomar] = useState<boolean>(false);
     const [calendaricos, setCalendaricos] = useState<ControleInicialCalendarico[]>([])
     const [naoCalendaricos, setNaoCalendaricos] = useState<ControleEquipamento[]>([])
     const [periodo, setPeriodo] = useState<ControlePeriodo[]>([]);
-    const [message, setMessage] = useState<string>('');
-    const [showMessage, setShowMessage] = useState<boolean>(false);
     const { sendRequest: sendNaoCalendaricosRequest, isLoading: naoCalendaricoIsLoading, error: errorNaoCalendarico } = useHttp();
     const { sendRequest: sendCalendaricosRequest, isLoading: calendaricoIsLoading, error: errorCalendarico } = useHttp();
     const { sendRequest: sendSomarPeriodoRequest, isLoading: SomarPeriodoIsLoading, error: errorSomar } = useHttp();
@@ -46,7 +44,7 @@ const TabControlesIniciais = () => {
             headers: { 'Content-Type': 'application/json', },
         }, (data: { message: string, controlePeriodo: ControlePeriodo[] }) => {
             setPeriodo(data.controlePeriodo);
-            setMessage(data.message);
+            enqueueSnackbar(data.message, { variant: 'success' })
         })
     }, [selectedDate])
 
@@ -54,9 +52,8 @@ const TabControlesIniciais = () => {
         setOpenDialogSomar(false);
     }
 
-    const onDateChange = (newDate: string) => {
-        setSelectedDate(newDate);
-        setShowMessage(true);
+    const onDateChange = (newDate: string | null) => {
+        setSelectedDate(newDate!);
     }
 
     return (<>
@@ -97,7 +94,6 @@ const TabControlesIniciais = () => {
             <TableCalendaricos controles={calendaricos} />
         </>)}
         <DialogSomar open={openDialogSomar} onClose={onCloseDialogSomar} selectedDate={selectedDate} onDataChange={onDateChange} controlePeriodo={periodo} />
-        <Message text={message} color={'success'} show={showMessage} clearHandler={setShowMessage} />
     </>)
 }
 

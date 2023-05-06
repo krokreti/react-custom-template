@@ -8,7 +8,7 @@ import ControlePeriodo from '../../../../models/ControlePeriodo';
 type Props = {
     open: boolean,
     onClose: () => void,
-    onDataChange: (newDate: string) => void,
+    onDataChange: (newDate: string | null) => void,
     selectedDate: string,
     controlePeriodo: ControlePeriodo[],
 }

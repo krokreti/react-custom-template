@@ -8,6 +8,7 @@ import { authActions } from './store/auth-slice';
 import { useEffect } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import Notistack from './plugins/Notistack';
 import 'dayjs/locale/pt-br';
 
 
@@ -26,6 +27,7 @@ function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
       <ThemeProvider theme={theme}>
+        <Notistack />
         <Box className="App"  >
           <NavBar />
           <Outlet />

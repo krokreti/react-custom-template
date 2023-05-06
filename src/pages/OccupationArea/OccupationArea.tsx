@@ -1,6 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Typography, Divider, Select, SelectChangeEvent, Box, MenuItem, InputLabel, FormControl } from '@mui/material';
 import MiniCard from "../../components/shared/MiniCard";
-import { useState, useEffect } from 'react';
 import CustomButton from '../../components/CustomButton';
 
 const OccupationArea = () => {

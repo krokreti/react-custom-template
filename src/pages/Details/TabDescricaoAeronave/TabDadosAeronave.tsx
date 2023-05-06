@@ -10,17 +10,13 @@ import DialogConfiguracaoPrimaria from './Dialogs/DialogConfiguracaoPrimaria';
 import useHttp from '../../../hooks/use-http';
 import TabelaManutencao from '../../../models/TabelaManutencao';
 import ConfiguracaoPrimaria from '../../../models/ConfiguracaoPrimaria';
-import Message from '../../../components/Message';
-import { AlertColor } from '@mui/material/Alert';
+import { enqueueSnackbar } from 'notistack';
 
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
     const [openDialogConfiguracaoPrimaria, setOpenDialogConfiguracaoPrimaria] = useState<boolean>(false);
     const [filteredListConfiguracaoPrimaria, setFilteredListConfiguracaoPrimaria] = useState<ConfiguracaoPrimaria[]>([])
     const [filteredListCicloInspecao, setFilteredListCicloInspecao] = useState<TabelaManutencao[]>([])
-    const [showMessage, setShowMessage] = useState<boolean>(false);
-    const [text, setText] = useState<string>('');
-    const [color, setColor] = useState<AlertColor>('success');
     const [selectedCicloInspecao, setSelectedCicloInspecao] = useState<string | undefined>(aeronave?.NM_TABELA);
     const [selectedConfiguracaoPrimaria, setSelectedConfiguracaoPrimaria] = useState<string | undefined>(aeronave?.DS_CONFIGURACAO);
     const { sendRequest: sendRequestCicloInspecao } = useHttp();
@@ -66,8 +62,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         }, (result: { message: string, EquipamentoAeronave: EquipamentoAeronave }) => {
             console.log(result.EquipamentoAeronave);
             setSelectedCicloInspecao(result.EquipamentoAeronave.NM_TABELA);
-            setText(result.message);
-            setShowMessage(true);
+            enqueueSnackbar(result.message, { variant: 'success' })
             onCloseCicloInspecaoDialog();
         })
     }
@@ -82,8 +77,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             body: { nrConfiguracao: nrConfiguracao }
         }, (result: { message: string, ConfiguracaoPrimaria: ConfiguracaoPrimaria }) => {
             setSelectedConfiguracaoPrimaria(result.ConfiguracaoPrimaria.DS_CONFIGURACAO)
-            setText(result.message);
-            setShowMessage(true);
+            enqueueSnackbar(result.message, { variant: 'success' })
             onCloseConfiguracaoPrimariaDialog();
         })
     }
@@ -188,7 +182,6 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
             onClose={onCloseConfiguracaoPrimariaDialog}
             onSave={saveConfiguracaoPrimariaHandler}
             isLoading={isLoadingConfiguracaoPrimaria} />
-        <Message color={color} show={showMessage} text={text} clearHandler={setShowMessage} />
     </Box>)
 }
 
