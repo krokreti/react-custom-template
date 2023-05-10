@@ -17,7 +17,8 @@ import { enqueueSnackbar } from 'notistack';
 
 const TabControlesIniciais = () => {
     const { id: nrEquipamento } = useParams();
-    const [selectedDate, setSelectedDate] = useState<string>(dayjs().toISOString())
+    //corrigir essa tipagem do dayjs
+    const [selectedDate, setSelectedDate] = useState<string>(dayjs())
     const [openDialogSomar, setOpenDialogSomar] = useState<boolean>(false);
     const [calendaricos, setCalendaricos] = useState<ControleInicialCalendarico[]>([])
     const [naoCalendaricos, setNaoCalendaricos] = useState<ControleEquipamento[]>([])
@@ -44,7 +45,9 @@ const TabControlesIniciais = () => {
             headers: { 'Content-Type': 'application/json', },
         }, (data: { message: string, controlePeriodo: ControlePeriodo[] }) => {
             setPeriodo(data.controlePeriodo);
-            enqueueSnackbar(data.message, { variant: 'success' })
+            if (openDialogSomar) {
+                enqueueSnackbar(data.message, { variant: 'success' })
+            }
         })
     }, [selectedDate])
 

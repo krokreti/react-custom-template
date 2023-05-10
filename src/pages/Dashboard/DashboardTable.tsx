@@ -39,12 +39,12 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 type DashboardType = {
     aeronaves: EquipamentoAeronave[],
-    perPage?: number,
+    totalPages?: number,
     currentPage: number,
     changePageHandler: (_event: React.ChangeEvent<unknown>, page: number) => void,
 }
 
-const DashboardTable: React.FC<DashboardType> = ({ aeronaves, perPage, currentPage, changePageHandler }) => {
+const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, currentPage, changePageHandler }) => {
     return (<>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} >
@@ -95,7 +95,7 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, perPage, currentPa
             </Table>
         </TableContainer>
         <Stack spacing={2} marginTop={4} display={'flex'} direction="row" justifyContent="center">
-            <Pagination color={'primary'} count={perPage} page={currentPage} onChange={changePageHandler} />
+            <Pagination color={'primary'} count={totalPages} page={currentPage} onChange={changePageHandler} />
         </Stack>
     </>
     );
