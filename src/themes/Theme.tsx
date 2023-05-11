@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { orange } from '@mui/material/colors';
+import { orange, grey } from '@mui/material/colors';
 // const Theme = createTheme({
 //     palette: {
 //         primary: {
@@ -79,6 +79,9 @@ export const lightTheme = createTheme({
     background: {
         default: '#EEF2F6'
     },
+    customBorder: {
+        default: grey[400]
+    },
 });
 
 export const darkTheme = createTheme({
@@ -94,6 +97,9 @@ export const darkTheme = createTheme({
     },
     primary: {
         main: '#121212'
+    },
+    customBorder: {
+        default: grey[600]
     },
 })
 

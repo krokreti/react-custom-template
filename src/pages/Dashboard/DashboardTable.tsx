@@ -12,8 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import EquipamentoAeronave from '../../models/EquipamentoAeronave';
 import { Link } from "react-router-dom";
 import FlightIcon from '@mui/icons-material/Flight';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import CustomPaginator from '../../components/CustomPaginator';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -45,6 +44,17 @@ type DashboardType = {
 }
 
 const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, currentPage, changePageHandler }) => {
+    const setColor = (disponibilidade?: string) => {
+        switch (disponibilidade) {
+            case 'S':
+                return 'success';
+            case 'N':
+                return 'error';
+            default:
+                return 'grey';
+        }
+    }
+
     return (<>
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 700 }} >
@@ -77,7 +87,7 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, curren
                                     </IconButton>
                                 </Link>
                             </StyledTableCell>
-                            <StyledTableCell align="center" > <FlightIcon color={aeronave?.DS_SITUACAO_ATUAL == 'DISPONÍVEL' ? 'success' : 'error'} /> </StyledTableCell>
+                            <StyledTableCell align="center" > <FlightIcon color={setColor(aeronave.IN_DISPONIBILIDADE)} /> </StyledTableCell>
                             <StyledTableCell align="center" >{aeronave.IN_SITUACAO_ATUAL}</StyledTableCell>
                             <StyledTableCell align="center" >{aeronave.NR_MATRICULA}</StyledTableCell>
                             <StyledTableCell align="center" >{aeronave.SG_PROJETO}</StyledTableCell>
@@ -94,9 +104,7 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, curren
                 </TableBody>
             </Table>
         </TableContainer>
-        <Stack spacing={2} marginTop={4} display={'flex'} direction="row" justifyContent="center">
-            <Pagination color={'primary'} count={totalPages} page={currentPage} onChange={changePageHandler} />
-        </Stack>
+        <CustomPaginator totalPages={totalPages} currentPage={currentPage} onChangePage={changePageHandler} />
     </>
     );
 }
