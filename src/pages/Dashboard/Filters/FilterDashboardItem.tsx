@@ -25,8 +25,9 @@ const FilterDashboardItem: React.FC<FilterItem> = (props) => {
     }
 
     return (
-        <Link to={`/detalhes-aeronave/${props.nrEquipamento}`} style={{ textDecoration: 'none', width: '100%' }}>
+        <Link to={`/detalhes-aeronave/${props.nrEquipamento}`} style={{ textDecoration: 'none', width: '100%' }} key={props.nrEquipamento}>
             <Paper
+                key={props.nrEquipamento}
                 sx={{
                     p: 2,
                     width: '100%',

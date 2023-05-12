@@ -7,7 +7,7 @@ interface requestType {
     body?: object | {}
 }
 
-var baseUrl = 'http://localhost:3000/';
+var baseUrl = import.meta.env.VITE_API_URL;
 
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);

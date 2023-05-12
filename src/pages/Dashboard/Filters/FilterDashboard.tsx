@@ -35,7 +35,7 @@ const FilterDashboard: React.FC<FilterType> = ({ loading, aeronaves, onChange })
         }}
         sx={{ marginBottom: 3, maxWidth: '600px' }}
         isOptionEqualToValue={(option: string, value: string) => option === value}
-        getOptionLabel={(option: EquipamentoAeronave) => <FilterDashboardItem matricula={option.NR_MATRICULA} projeto={option.SG_PROJETO} tipo={option.IN_DISPONIBILIDADE} pn={option.NR_PN} nrEquipamento={option.NR_EQUIPAMENTO} />}
+        getOptionLabel={(option: EquipamentoAeronave) => <FilterDashboardItem key={option.NR_EQUIPAMENTO} matricula={option.NR_MATRICULA} projeto={option.SG_PROJETO} tipo={option.IN_DISPONIBILIDADE} pn={option.NR_PN} nrEquipamento={option.NR_EQUIPAMENTO} />}
         filterOptions={(options: EquipamentoAeronave[]) => options}
         options={aeronaves}
         loading={loading}
