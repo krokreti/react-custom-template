@@ -25,7 +25,6 @@ export const fetchUserByCpf = createAsyncThunk(
 export const fetchUserPictureBySaram = createAsyncThunk(
     'usuario/fetchUserPictureBySaram',
     async (saram: string) => {
-
         const response = await fetch(`https://compraer.prd.rancher.ccarj.intraer/compraer-suporte-api/api/foto/SQL/${saram}`, {
             method: 'GET',
             mode: "cors",
