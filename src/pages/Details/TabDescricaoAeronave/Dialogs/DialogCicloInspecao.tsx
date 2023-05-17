@@ -29,16 +29,25 @@ const DialogCicloInspecao: React.FC<Props> = (props) => {
         }
     }, [selectedValue])
 
-    var content = (<FormControl>
-        <FormLabel id="ciclo-inspecao-radio-group" sx={{ marginBottom: 2 }}>Ciclos de Inspeção:</FormLabel>
-        <RadioGroup aria-labelledby="ciclo-inspecao-radio-group" name="radio-buttons-group" onChange={handleChange}>
-            {props.ciclos.map((ciclo) => (
-                <FormControlLabel key={ciclo.CD_TABELA} control={<Radio />} label={
-                    <Typography fontWeight={'bold'}>{ciclo.CD_TABELA} - {ciclo.DS_TABELA}</Typography>
-                } value={ciclo.CD_TABELA} />
-            ))}
-        </RadioGroup>
-    </FormControl>);
+    var content = (
+        <>
+            {props.ciclos.length == 0 && (
+                <Typography fontStyle={'italic'}>Não há ciclos disponíveis.</Typography>
+            )}
+            {props.ciclos.length > 0 && (
+                <FormControl>
+                    <FormLabel id="ciclo-inspecao-radio-group" sx={{ marginBottom: 2 }}>Ciclos de Inspeção:</FormLabel>
+                    <RadioGroup aria-labelledby="ciclo-inspecao-radio-group" name="radio-buttons-group" onChange={handleChange}>
+                        {props.ciclos.map((ciclo) => (
+                            <FormControlLabel key={ciclo.CD_TABELA} control={<Radio />} label={
+                                <Typography fontWeight={'bold'}>{ciclo.CD_TABELA} - {ciclo.DS_TABELA}</Typography>
+                            } value={ciclo.CD_TABELA} />
+                        ))}
+                    </RadioGroup>
+                </FormControl>
+            )}
+        </>
+    );
 
     var actions = (<>
         <CustomButton onClick={props.onClose} color="primary" variant="text" >Cancelar</CustomButton>
