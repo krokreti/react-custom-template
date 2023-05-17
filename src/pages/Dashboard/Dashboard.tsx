@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MainCard from "../../components/shared/MainCard";
 import useHttp from "../../hooks/use-http";
 import DashboardTable from "./DashboardTable";
@@ -7,6 +7,7 @@ import EquipamentoAeronave from "../../models/EquipamentoAeronave";
 import FlightIcon from '@mui/icons-material/Flight';
 import ErrorCard from "../../components/ErrorCard";
 import FilterDashboard from "./Filters/FilterDashboard";
+import { useAppSelector } from "../../hooks/redux-hooks";
 
 interface AeronavePaginada {
     aeronaves: EquipamentoAeronave[],
@@ -26,9 +27,10 @@ const Dashboard = () => {
     const [totalPages, setTotalPages] = useState<number | undefined>(10);
     const { sendRequest: requestAeronaves, isLoading, error } = useHttp();
     const { sendRequest: requestFilter, isLoading: loadingFilter } = useHttp();
+    const unidade = useAppSelector(state => state.occupationArea.unidade);
 
     useEffect(() => {
-        requestAeronaves({ url: `aeronaves/unidade/apoiadora/374?page=${currentPage}&limit=${limit}` }, (data: AeronavePaginada) => {
+        requestAeronaves({ url: `aeronaves/unidade/apoiadora/${unidade}?page=${currentPage}&limit=${limit}` }, (data: AeronavePaginada) => {
             console.log(data)
             setEquipamentoAeronave(data.aeronaves);
             setTotalPages(data.totalPages);
@@ -37,7 +39,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (filterText.length >= 3) {
-            requestFilter({ url: `aeronaves/unidade/apoiadora/filtro/374?filtro=${filterText.toString().toUpperCase()}` }, (data: EquipamentoAeronave[]) => {
+            requestFilter({ url: `aeronaves/unidade/apoiadora/filtro/${unidade}?filtro=${filterText.toString().toUpperCase()}` }, (data: EquipamentoAeronave[]) => {
                 setFilteredAeronaves(data);
             });
         } else {

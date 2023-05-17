@@ -132,7 +132,7 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
                     type='text'
                     shrink
                     inputProps={{ readOnly: true }}
-                    value={aeronave?.TP_ABASTECIMENTO}
+                    value={aeronave?.TP_ABASTECIMENTO ?? ''}
                 />
             </Grid>
             <Grid item xs={12} sm={4} md={3} >

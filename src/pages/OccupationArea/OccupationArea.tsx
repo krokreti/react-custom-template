@@ -1,12 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Typography, Divider, Select, SelectChangeEvent, Box, MenuItem, InputLabel, FormControl } from '@mui/material';
+import { Typography, Divider, Select, SelectChangeEvent, Box, MenuItem, InputLabel, FormControl, Autocomplete, TextField } from '@mui/material';
 import MiniCard from "../../components/shared/MiniCard";
 import CustomButton from '../../components/CustomButton';
+import keycloak from '../../plugins/keycloak.js';
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from '../../hooks/redux-hooks';
+import { fetchUnidadesPorCpf, occupationAreaActions } from '../../store/occupation-area-slice';
+import Unidade from '../../models/Unidade';
+
+type UnidadePayload = {
+    meta: {},
+    payload: Unidade[],
+    type: string
+}
 
 const OccupationArea = () => {
+    const navigate = useNavigate();
     const [selectedArea, setSelectedArea] = useState<string>('');
     const [selectedUnidade, setSelectedUnidade] = useState<string>('');
+    const [unidades, setUnidades] = useState<Unidade[]>([]);
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchUnidadesPorCpf(keycloak.tokenParsed.preferred_username)).then((state: UnidadePayload) => {
+            setUnidades(state.payload);
+        });
+    }, [])
 
     useEffect(() => {
         if (selectedArea && selectedUnidade) {
@@ -20,12 +40,12 @@ const OccupationArea = () => {
         setSelectedArea(event.target.value);
     }
 
-    const handleChangeUnidade = (event: SelectChangeEvent) => {
-        setSelectedUnidade(event.target.value)
-    }
-
     const onClickHandler = () => {
-
+        dispatch(occupationAreaActions.setToken({
+            unidade: selectedUnidade,
+            area: selectedArea,
+        }))
+        navigate("/");
     }
 
     return (<MiniCard>
@@ -37,7 +57,17 @@ const OccupationArea = () => {
             Por favor, escolha sua área de atuação:
         </Typography>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
-            <FormControl size='small'>
+            <Autocomplete
+                size='small'
+                options={unidades}
+                getOptionLabel={(unidade: Unidade) => unidade.SG_UNIDADE}
+                renderInput={(params: any) => <TextField {...params} label="Unidade" />}
+                onChange={(_event: React.SyntheticEvent, newValue: Unidade) => {
+                    console.log(newValue)
+                    setSelectedUnidade(newValue.CD_UNIDADE);
+                }}
+            />
+            {/* <FormControl size='small'>
                 <InputLabel id="unidade-label" >Unidade</InputLabel>
                 <Select
                     label="Unidade"
@@ -47,9 +77,11 @@ const OccupationArea = () => {
                     size='small'
                 >
                     <MenuItem value=""><em>-</em></MenuItem>
-                    <MenuItem value={1}>AFA</MenuItem>
+                    {unidades.map((unidade, index) => (
+                        <MenuItem key={index} value={unidade.CD_UNIDADE}>{unidade.SG_UNIDADE}</MenuItem>
+                    ))}
                 </Select>
-            </FormControl>
+            </FormControl> */}
 
             <FormControl size='small'>
                 <InputLabel id="area-label">Área de Atuação</InputLabel>

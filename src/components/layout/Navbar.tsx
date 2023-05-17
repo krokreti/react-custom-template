@@ -67,9 +67,9 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 const NavBar: React.FC<Children> = (props) => {
-    const isLightMode = useAppSelector(state => state.theme.isLightMode);
-    const isSmallScreen = useMediaQuery('(max-width: 600px)');
     const theme = useTheme();
+    const isLightMode = useAppSelector(state => state.theme.isLightMode);
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [open, setOpen] = React.useState(false);
 
     return (

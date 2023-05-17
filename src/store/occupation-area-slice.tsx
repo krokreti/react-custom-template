@@ -1,5 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
+
+var baseUrl = import.meta.env.VITE_API_URL;
 
 interface OccupationAreaState {
     unidade: string,
@@ -21,26 +23,48 @@ const retrieveStoredOccupationArea = () => {
     }
 }
 
+export const fetchUnidadesPorCpf = createAsyncThunk(
+    'unidade/fetchUnidadePorCpf',
+    async (cpf: string) => {
+        const response = await fetch(`${baseUrl}unidade/pessoa/${cpf}`)
+        return await response.json();
+    }
+)
+
 const initialOccupationAreaState: OccupationAreaState = {
     unidade: retrieveStoredOccupationArea().unidade,
     area: retrieveStoredOccupationArea().area,
+}
+
+const verifyUnidade = (state: OccupationAreaState): boolean => {
+    if (state.unidade == '' || state.unidade == undefined || state.unidade == null) {
+        return false;
+    } else {
+        return true;
+    }
 }
 
 const occupationAreaSlice = createSlice({
     name: 'occupationArea',
     initialState: initialOccupationAreaState,
     reducers: {
-        setToken(state, action: PayloadAction<OccupationAreaState>) {
+        setToken(state: OccupationAreaState, action: PayloadAction<OccupationAreaState>) {
             localStorage.setItem('area', action.payload.area)
             localStorage.setItem('unidade', action.payload.unidade)
             state.area = action.payload.area;
             state.unidade = action.payload.unidade;
-        }
+        },
+    },
+    extraReducers: (builder: any) => {
+        builder.addCase(fetchUnidadesPorCpf.fulfilled, (state: OccupationAreaState, action: PayloadAction<OccupationAreaState>) => {
+            // console.log(action.payload);
+        })
     }
 });
 
 export const occupationAreaActions = occupationAreaSlice.actions;
 export const unidade = (state: RootState) => state.occupationArea.unidade;
 export const area = (state: RootState) => state.occupationArea.area;
+export const hasUnidade = (state: RootState) => verifyUnidade(state.occupationArea.unidade);
 
 export default occupationAreaSlice.reducer;

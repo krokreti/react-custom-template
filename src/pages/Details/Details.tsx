@@ -16,7 +16,6 @@ const Details = () => {
     useEffect(() => {
         sendRequest({ url: `siloms/api/aeronave/${params.id}` }, (data: EquipamentoAeronave) => {
             setEquipamentoAeronave(data);
-            console.log(data);
         });
     }, []);
 

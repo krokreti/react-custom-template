@@ -1,7 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from ".";
-import Usuario from "../models/Usuario";
-
 
 var baseUrl = import.meta.env.VITE_API_URL;
 
@@ -67,7 +65,7 @@ const authSlice = createSlice({
             }
         }),
             builder.addCase(fetchUserPictureBySaram.fulfilled, (state: authState, action: any) => {
-                console.log(action.payload)
+                state.CD_FOTO = action.payload.imFoto;
             })
     },
 });

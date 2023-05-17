@@ -4,7 +4,7 @@ import Children from "../../models/Children";
 
 const MiniCard: React.FC<Children> = (props) => {
     return (
-        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 4em)' }}>
             <Box
                 p={4}
                 width={'24em'}
