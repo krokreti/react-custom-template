@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -7,12 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CustomPaginator from '../../components/CustomPaginator';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.common.white,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
     }
 }))
 
@@ -38,6 +40,13 @@ const rows = [
     createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8, 1, 2),
 ];
 
+type DiretivasType = {
+    // aeronaves: EquipamentoAeronave[],
+    totalPages?: number,
+    currentPage: number,
+    changePageHandler: (_event: React.ChangeEvent<unknown>, page: number) => void,
+}
+
 const TableDiretivas = () => {
     const [selectedRow, setSelectedRow] = useState<string>('');
 
@@ -45,46 +54,51 @@ const TableDiretivas = () => {
         setSelectedRow(selectedRow)
     }
 
-    return (<TableContainer component={Paper}>
-        <Table sx={{ minWidth: "650px" }} >
-            <TableHead >
-                <TableRow>
-                    <StyledTableCell align="center">Ciclo</StyledTableCell>
-                    <StyledTableCell align="center">N° Seq</StyledTableCell>
-                    <StyledTableCell align="center">Sigla Insp</StyledTableCell>
-                    <StyledTableCell align="center">Data Início</StyledTableCell>
-                    <StyledTableCell align="center">Data Fim</StyledTableCell>
-                    <StyledTableCell align="center">Unidade</StyledTableCell>
-                    <StyledTableCell align="center">Setor</StyledTableCell>
-                    <StyledTableCell align="center">OS</StyledTableCell>
-                    <StyledTableCell align="center">Ofic Externa</StyledTableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {rows.map((row) => (
-                    <TableRow
-                        hover={true}
-                        selected={selectedRow == row.name}
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        onClick={() => { onClickTableRow(row.name) }}
-                    >
-                        <TableCell component="th" scope="row">
-                            {row.name}
-                        </TableCell>
-                        <TableCell align="center">{row.calories}</TableCell>
-                        <TableCell align="center">{row.fat}</TableCell>
-                        <TableCell align="center">{row.carbs}</TableCell>
-                        <TableCell align="center">{row.protein}</TableCell>
-                        <TableCell align="center">{row.teste1}</TableCell>
-                        <TableCell align="center">{row.teste2}</TableCell>
-                        <TableCell align="center">{row.teste3}</TableCell>
-                        <TableCell align="center">{row.teste4}</TableCell>
-                    </TableRow>
-                ))}
-            </TableBody>
-        </Table>
-    </TableContainer>)
+    return (
+        <>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: "650px" }} >
+                    <TableHead >
+                        <TableRow>
+                            <StyledTableCell align="center" sx={{ display: 'flex', justifyContent: 'center' }}><SettingsIcon /></StyledTableCell>
+                            <StyledTableCell align="center">Publicação Técnica</StyledTableCell>
+                            <StyledTableCell align="center">Título</StyledTableCell>
+                            <StyledTableCell align="center">FADT</StyledTableCell>
+                            <StyledTableCell align="center">Tarefa</StyledTableCell>
+                            <StyledTableCell align="center">Unidade</StyledTableCell>
+                            <StyledTableCell align="center">Data Cumprimento</StyledTableCell>
+                            <StyledTableCell align="center">OS</StyledTableCell>
+                            <StyledTableCell align="center">Responsável</StyledTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row) => (
+                            <TableRow
+                                hover={true}
+                                selected={selectedRow == row.name}
+                                key={row.name}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                onClick={() => { onClickTableRow(row.name) }}
+                            >
+                                <TableCell component="th" scope="row">
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="center">{row.calories}</TableCell>
+                                <TableCell align="center">{row.fat}</TableCell>
+                                <TableCell align="center">{row.carbs}</TableCell>
+                                <TableCell align="center">{row.protein}</TableCell>
+                                <TableCell align="center">{row.teste1}</TableCell>
+                                <TableCell align="center">{row.teste2}</TableCell>
+                                <TableCell align="center">{row.teste3}</TableCell>
+                                <TableCell align="center">{row.teste4}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            {/* <CustomPaginator totalPages={totalPages} currentPage={currentPage} onChangePage={changePageHandler} /> */}
+        </>
+    )
 }
 
 export default TableDiretivas;

@@ -11,6 +11,7 @@ import useHttp from '../../../hooks/use-http';
 import TabelaManutencao from '../../../models/TabelaManutencao';
 import ConfiguracaoPrimaria from '../../../models/ConfiguracaoPrimaria';
 import { enqueueSnackbar } from 'notistack';
+import Grow from '@mui/material/Grow';
 
 const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = ({ aeronave }) => {
     const [openDialogCicloInspecao, setOpenDialogCicloInspecao] = useState<boolean>(false);
@@ -82,107 +83,116 @@ const TabDescricaoAeronave: React.FC<{ aeronave: EquipamentoAeronave | undefined
         })
     }
 
-    return (<Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3} >
-            <Grid item xs={6} sm={4} md={3} >
-                <Input
-                    id='dtFabricacao'
-                    label='Data Fabricação'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={dayjs(aeronave?.DT_FABRICACAO).format('DD/MM/YYYY')}
-                />
+    return (
+        <Grow
+            in={aeronave}
+            unmountOnExit
+            style={{ transformOrigin: '0 0 0' }}
+            {...(aeronave ? { timeout: 1000 } : {})}
+        >
+            <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={3} >
+                    <Grid item xs={6} sm={4} md={3} >
+                        <Input
+                            id='dtFabricacao'
+                            label='Data Fabricação'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={dayjs(aeronave?.DT_FABRICACAO).format('DD/MM/YYYY')}
+                        />
 
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} >
-                <Input
-                    id='dtRecebimento'
-                    label='Data Recebimento'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={dayjs(aeronave?.DT_RECEBIMENTO).format('DD/MM/YYYY')}
-                />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3}>
-                <Input
-                    id='nrContrato'
-                    label='N° Contrato'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={aeronave?.NR_CONTRATO}
-                />
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} >
-                <Input
-                    id='dtContrato'
-                    label='Data Contrato'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={dayjs(aeronave?.DT_CONTRATO).format('DD/MM/YYYY')}
-                />
-            </Grid>
-            <Grid item xs={6} sm={4} md={3} >
-                <Input
-                    id='tpAbastecimento'
-                    label='Tipo Abastecimento'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={aeronave?.TP_ABASTECIMENTO ?? ''}
-                />
-            </Grid>
-            <Grid item xs={12} sm={4} md={3} >
-                <Input
-                    id='preco'
-                    label='Preço'
-                    type='text'
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={aeronave?.VL_PRECO_EQP ?? ''}
-                />
-            </Grid>
-        </Grid>
-        <Grid container spacing={3} marginTop={2} >
-            <Grid item xs={12} sm={4} md={5} >
+                    </Grid>
+                    <Grid item xs={6} sm={4} md={3} >
+                        <Input
+                            id='dtRecebimento'
+                            label='Data Recebimento'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={dayjs(aeronave?.DT_RECEBIMENTO).format('DD/MM/YYYY')}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={3}>
+                        <Input
+                            id='nrContrato'
+                            label='N° Contrato'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={aeronave?.NR_CONTRATO}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={4} md={3} >
+                        <Input
+                            id='dtContrato'
+                            label='Data Contrato'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={dayjs(aeronave?.DT_CONTRATO).format('DD/MM/YYYY')}
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={4} md={3} >
+                        <Input
+                            id='tpAbastecimento'
+                            label='Tipo Abastecimento'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={aeronave?.TP_ABASTECIMENTO ?? ''}
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={3} >
+                        <Input
+                            id='preco'
+                            label='Preço'
+                            type='text'
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={aeronave?.VL_PRECO_EQP ?? ''}
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3} marginTop={2} >
+                    <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={selectedCicloInspecao} label='Ciclos Inspeções' onClick={() => { setOpenDialogCicloInspecao(true) }} />
-            </Grid>
-            <Grid item xs={12} sm={4} md={5} >
+                        <InputButton icon={<EditIcon />} value={selectedCicloInspecao} label='Ciclos Inspeções' onClick={() => { setOpenDialogCicloInspecao(true) }} />
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={5} >
 
-                <InputButton icon={<EditIcon />} value={selectedConfiguracaoPrimaria} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
-            </Grid>
-        </Grid>
-        <Grid container spacing={3} marginTop={2} >
-            <Grid item xs={12} sm={6} md={6} >
-                <Input
-                    id='observacoes'
-                    label='Observações'
-                    type='text'
-                    multiline
-                    rows={3}
-                    shrink
-                    inputProps={{ readOnly: true }}
-                    value={aeronave?.TX_OBS ?? ''}
-                />
-            </Grid>
-        </Grid>
-        <DialogCicloInspecao
-            ciclos={filteredListCicloInspecao}
-            open={openDialogCicloInspecao}
-            onClose={onCloseCicloInspecaoDialog}
-            onSave={saveCicloInspecaoHandler}
-            isLoading={isLoadingCicloInspecao} />
-        <DialogConfiguracaoPrimaria
-            configuracoes={filteredListConfiguracaoPrimaria}
-            open={openDialogConfiguracaoPrimaria}
-            onClose={onCloseConfiguracaoPrimariaDialog}
-            onSave={saveConfiguracaoPrimariaHandler}
-            isLoading={isLoadingConfiguracaoPrimaria} />
-    </Box>)
+                        <InputButton icon={<EditIcon />} value={selectedConfiguracaoPrimaria} label='Configuração Primária' onClick={() => { setOpenDialogConfiguracaoPrimaria(true) }} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3} marginTop={2} >
+                    <Grid item xs={12} sm={6} md={6} >
+                        <Input
+                            id='observacoes'
+                            label='Observações'
+                            type='text'
+                            multiline
+                            rows={3}
+                            shrink
+                            inputProps={{ readOnly: true }}
+                            value={aeronave?.TX_OBS ?? ''}
+                        />
+                    </Grid>
+                </Grid>
+                <DialogCicloInspecao
+                    ciclos={filteredListCicloInspecao}
+                    open={openDialogCicloInspecao}
+                    onClose={onCloseCicloInspecaoDialog}
+                    onSave={saveCicloInspecaoHandler}
+                    isLoading={isLoadingCicloInspecao} />
+                <DialogConfiguracaoPrimaria
+                    configuracoes={filteredListConfiguracaoPrimaria}
+                    open={openDialogConfiguracaoPrimaria}
+                    onClose={onCloseConfiguracaoPrimariaDialog}
+                    onSave={saveConfiguracaoPrimariaHandler}
+                    isLoading={isLoadingConfiguracaoPrimaria} />
+            </Box>
+        </Grow>
+    )
 }
 
 export default TabDescricaoAeronave;

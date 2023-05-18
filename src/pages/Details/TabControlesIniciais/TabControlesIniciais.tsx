@@ -14,6 +14,7 @@ import ControleEquipamento from '../../../models/ControleEquipamento';
 import ControleInicialCalendarico from '../../../models/ControleInicialCalendarico';
 import ControlePeriodo from '../../../models/ControlePeriodo';
 import { enqueueSnackbar } from 'notistack';
+import Grow from '@mui/material/Grow';
 
 const TabControlesIniciais = () => {
     const { id: nrEquipamento } = useParams();
@@ -59,45 +60,53 @@ const TabControlesIniciais = () => {
         setSelectedDate(newDate!);
     }
 
-    return (<>
-        {(naoCalendaricoIsLoading || calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (<LoadingCard />)}
-        {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && (errorCalendarico || errorNaoCalendarico) && (<ErrorCard message={errorCalendarico} />)}
-        {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (<>
-            <Box display={'flex'} gap={4} marginBottom={4}>
-                <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
-                    <CustomButton onClick={() => { setOpenDialogSomar(true) }} >{<PostAdd />}</CustomButton>
-                    Somar
-                </Box>
-                <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
-                    <CustomButton onClick={() => { }} >{<Print />}</CustomButton>
-                    Imprimir
-                </Box>
-                <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
-                    <CustomButton onClick={() => { }} >{<FormatListNumbered />}</CustomButton>
-                    Excel
-                </Box>
-            </Box>
+    return (
+        <>
+            {(naoCalendaricoIsLoading || calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (<LoadingCard />)}
+            {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && (errorCalendarico || errorNaoCalendarico) && (<ErrorCard message={errorCalendarico} />)}
+            {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (
+                <Grow
+                    in={naoCalendaricos}
+                    unmountOnExit
+                    style={{ transformOrigin: '0 0 0' }}
+                    {...(naoCalendaricos ? { timeout: 1000 } : {})}>
+                    <Box>
+                        <Box display={'flex'} gap={4} marginBottom={4}>
+                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
+                                <CustomButton onClick={() => { setOpenDialogSomar(true) }} >{<PostAdd />}</CustomButton>
+                                Somar
+                            </Box>
+                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
+                                <CustomButton onClick={() => { }} >{<Print />}</CustomButton>
+                                Imprimir
+                            </Box>
+                            <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
+                                <CustomButton onClick={() => { }} >{<FormatListNumbered />}</CustomButton>
+                                Excel
+                            </Box>
+                        </Box>
 
-            <Typography sx={{ flex: '1 1 100%' }}
-                variant="h6"
-                id="tableTitle"
-                component="div"
-            >
-                Controles do Equipamento (Não Calendáricos)
-            </Typography>
-            <TableNaoCalendaricos controles={naoCalendaricos} />
-            <Typography
-                sx={{ flex: '1 1 100%', marginTop: 3 }}
-                variant="h6"
-                id="tableTitle"
-                component="div"
-            >
-                Controles do Equipamento (Calendáricos)
-            </Typography>
-            <TableCalendaricos controles={calendaricos} />
-        </>)}
-        <DialogSomar open={openDialogSomar} onClose={onCloseDialogSomar} selectedDate={selectedDate} onDataChange={onDateChange} controlePeriodo={periodo} />
-    </>)
+                        <Typography sx={{ flex: '1 1 100%' }}
+                            variant="h6"
+                            id="tableTitle"
+                            component="div"
+                        >
+                            Controles do Equipamento (Não Calendáricos)
+                        </Typography>
+                        <TableNaoCalendaricos controles={naoCalendaricos} />
+                        <Typography
+                            sx={{ flex: '1 1 100%', marginTop: 3 }}
+                            variant="h6"
+                            id="tableTitle"
+                            component="div"
+                        >
+                            Controles do Equipamento (Calendáricos)
+                        </Typography>
+                        <TableCalendaricos controles={calendaricos} />
+                    </Box>
+                </Grow>)}
+            <DialogSomar open={openDialogSomar} onClose={onCloseDialogSomar} selectedDate={selectedDate} onDataChange={onDateChange} controlePeriodo={periodo} />
+        </>)
 }
 
 export default TabControlesIniciais;

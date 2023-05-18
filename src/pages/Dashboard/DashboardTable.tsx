@@ -15,6 +15,10 @@ import FlightIcon from '@mui/icons-material/Flight';
 import CustomPaginator from '../../components/CustomPaginator';
 import Grow from '@mui/material/Grow';
 
+const StyledTableContainer = styled(TableContainer)(({ theme }) => ({
+    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+}));
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -57,7 +61,7 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, curren
     }
 
     return (<>
-        <TableContainer component={Paper}>
+        <StyledTableContainer component={Paper}>
             <Grow in={aeronaves} unmountOnExit>
                 <Table sx={{ minWidth: 700 }} >
                     <TableHead>
@@ -106,7 +110,7 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, curren
                     </TableBody>
                 </Table>
             </Grow>
-        </TableContainer>
+        </StyledTableContainer>
         <CustomPaginator totalPages={totalPages} currentPage={currentPage} onChangePage={changePageHandler} />
     </>
     );

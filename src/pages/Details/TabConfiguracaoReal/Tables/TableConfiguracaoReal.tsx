@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,11 +8,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SettingsIcon from '@mui/icons-material/Settings';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import IconButton from '@mui/material/IconButton';
+import Divider from '@mui/material/Divider';
 import CustomPaginator from '../../../../components/CustomPaginator';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -33,26 +33,27 @@ function createData(
     teste2: number,
     teste3: number,
     teste4: number,
+    teste5: number,
 ) {
-    return { name, calories, fat, carbs, protein, teste1, teste2, teste3, teste4 };
+    return { name, calories, fat, carbs, protein, teste1, teste2, teste3, teste4, teste5 };
 }
 
 const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 1.0, 2.0, 1, 2,),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 2, 3, 1, 2),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3, 5, 1, 2),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 5, 7, 1, 2),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8, 1, 2),
+    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 1.0, 2.0, 1, 2, 8),
+    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 2, 3, 1, 2, 9),
+    createData('Eclair', 262, 16.0, 24, 6.0, 3, 5, 1, 2, 10),
+    createData('Cupcake', 305, 3.7, 67, 4.3, 5, 7, 1, 2, 110),
+    createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8, 1, 2, 1),
 ];
 
-type DisponibilidadeType = {
+type ConfiguracaoRealType = {
     // aeronaves: EquipamentoAeronave[],
     totalPages?: number,
     currentPage: number,
     changePageHandler: (_event: React.ChangeEvent<unknown>, page: number) => void,
 }
 
-const TableDisponibilidade = () => {
+const TableConfiguracaoReal = () => {
     const [selectedRow, setSelectedRow] = useState<string>('');
 
     const onClickTableRow = (selectedRow: string) => {
@@ -65,15 +66,24 @@ const TableDisponibilidade = () => {
                 <Table sx={{ minWidth: "650px" }} >
                     <TableHead >
                         <TableRow>
+                            <StyledTableCell align="center" colSpan={6}>
+                                Configuração
+                            </StyledTableCell>
+                            <StyledTableCell align="center" colSpan={4}>
+                                Instalação
+                            </StyledTableCell>
+                        </TableRow>
+                        <TableRow>
                             <StyledTableCell align="center" sx={{ display: 'flex', justifyContent: 'center' }}><SettingsIcon /></StyledTableCell>
-                            <StyledTableCell align="center">Tipo Disp.</StyledTableCell>
-                            <StyledTableCell align="center">Situação</StyledTableCell>
-                            <StyledTableCell align="center">Data Início</StyledTableCell>
-                            <StyledTableCell align="center">Hora</StyledTableCell>
-                            <StyledTableCell align="center">Disponibilidade</StyledTableCell>
-                            <StyledTableCell align="center">Data Fim</StyledTableCell>
-                            <StyledTableCell align="center">Hora</StyledTableCell>
-                            <StyledTableCell align="center">Unidade</StyledTableCell>
+                            <StyledTableCell align="center">Seq</StyledTableCell>
+                            <StyledTableCell align="center">PN</StyledTableCell>
+                            <StyledTableCell align="center">CODEMP</StyledTableCell>
+                            <StyledTableCell align="center">Nomenclatura</StyledTableCell>
+                            <StyledTableCell align="center">Posição</StyledTableCell>
+                            <StyledTableCell align="center">SN</StyledTableCell>
+                            <StyledTableCell align="center">PN</StyledTableCell>
+                            <StyledTableCell align="center">Tipo Relação</StyledTableCell>
+                            <StyledTableCell align="center">Data</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -88,20 +98,14 @@ const TableDisponibilidade = () => {
                                 {index == 0 && (
                                     <TableCell component="th" scope="row" align="center">
                                         <IconButton>
-                                            <ContentCopyIcon />
-                                        </IconButton>
-                                        <IconButton>
-                                            <EditIcon color={'success'} />
-                                        </IconButton>
-                                        <IconButton>
-                                            <DeleteIcon color={'error'} />
+                                            <AddCircleIcon color={'success'} />
                                         </IconButton>
                                     </TableCell>
                                 )}
                                 {index > 0 && (
                                     <TableCell component="th" scope="row" align="center">
                                         <IconButton>
-                                            <ContentCopyIcon />
+                                            <RemoveCircleIcon color={'error'} />
                                         </IconButton>
                                         <IconButton>
                                             <ZoomInIcon color={'info'} />
@@ -116,6 +120,7 @@ const TableDisponibilidade = () => {
                                 <TableCell align="center">{row.teste2}</TableCell>
                                 <TableCell align="center">{row.teste3}</TableCell>
                                 <TableCell align="center">{row.teste4}</TableCell>
+                                <TableCell align="center">{row.teste5}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -126,4 +131,4 @@ const TableDisponibilidade = () => {
     )
 }
 
-export default TableDisponibilidade;
+export default TableConfiguracaoReal;

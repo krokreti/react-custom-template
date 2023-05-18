@@ -70,6 +70,7 @@ export const lightTheme = createTheme({
         },
 
     },
+
     primary: {
         main: '#1976d2',
     },
