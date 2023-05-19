@@ -7,7 +7,7 @@ import { router } from './routes';
 import './index.css'
 import keycloak from './plugins/keycloak.js';
 
-keycloak.init({ onLoad: 'login-required', checkLoginIframe: false }).then((authenticated: boolean) => {
+keycloak.init({ onLoad: 'login-required', checkLoginIframe: false }).then((_authenticated: boolean) => {
   ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <React.StrictMode>
       <Provider store={store}>

@@ -20,9 +20,9 @@ function App() {
   const unidade = useAppSelector(state => state.occupationArea.unidade);
   // const cpf: string = (useAppSelector(state => state.auth.cpf));
   useEffect(() => {
-    dispatch(authActions.setUserCpf({
-      cpf: keycloak.tokenParsed.preferred_username,
-    }));
+    if (keycloak.tokenParsed) {
+      dispatch(authActions.setUserCpf(keycloak.tokenParsed.preferred_username.toString()));
+    }
   }, [keycloak])
 
   useEffect(() => {

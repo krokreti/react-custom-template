@@ -67,7 +67,7 @@ const TabControlesIniciais = () => {
             {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && (errorCalendarico || errorNaoCalendarico) && (<ErrorCard message={errorCalendarico} />)}
             {(!naoCalendaricoIsLoading && !calendaricoIsLoading) && !(errorCalendarico && errorNaoCalendarico) && (
                 <Grow
-                    in={naoCalendaricos}
+                    in={naoCalendaricos.length > 0}
                     unmountOnExit
                     style={{ transformOrigin: '0 0 0' }}
                     {...(naoCalendaricos ? { timeout: 1000 } : {})}>

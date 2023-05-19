@@ -6,7 +6,6 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import IconButton from '@mui/material/IconButton';
 import EquipamentoAeronave from '../../models/EquipamentoAeronave';
@@ -56,13 +55,13 @@ const DashboardTable: React.FC<DashboardType> = ({ aeronaves, totalPages, curren
             case 'N':
                 return 'error';
             default:
-                return 'grey';
+                return 'disabled';
         }
     }
 
     return (<>
-        <StyledTableContainer component={Paper}>
-            <Grow in={aeronaves} unmountOnExit>
+        <StyledTableContainer >
+            <Grow in={aeronaves.length > 0} unmountOnExit>
                 <Table sx={{ minWidth: 700 }} >
                     <TableHead>
                         <TableRow>

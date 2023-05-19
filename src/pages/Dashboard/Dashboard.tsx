@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import MainCard from "../../components/shared/MainCard";
 import useHttp from "../../hooks/use-http";
 import DashboardTable from "./DashboardTable";
@@ -8,6 +8,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import ErrorCard from "../../components/ErrorCard";
 import FilterDashboard from "./Filters/FilterDashboard";
 import { useAppSelector } from "../../hooks/redux-hooks";
+import DashboardInfo from "./DashboardInfo";
 
 interface AeronavePaginada {
     aeronaves: EquipamentoAeronave[],
@@ -23,7 +24,7 @@ const Dashboard = () => {
     const [filterText, setFilterText] = useState<string>('');
     const [currentPage, setCurrentPage] = useState(1);
     // TO DO
-    const [limit, setLimit] = useState<number | undefined>(10);
+    const [limit, _setLimit] = useState<number | undefined>(10);
     const [totalPages, setTotalPages] = useState<number | undefined>(10);
     const { sendRequest: requestAeronaves, isLoading, error } = useHttp();
     const { sendRequest: requestFilter, isLoading: loadingFilter } = useHttp();
@@ -59,6 +60,7 @@ const Dashboard = () => {
         <MainCard title={"Aeronaves"} startIcon={<FlightIcon color="primary" />}>
             {isLoading && <LoadingCard />}
             {!isLoading && error && (<ErrorCard message={error} />)}
+            {!isLoading && !error && <DashboardInfo />}
             {!isLoading && !error && <FilterDashboard aeronaves={filteredAeronaves} loading={loadingFilter} onChange={onFilterChange} />}
             {!isLoading && !error && <DashboardTable aeronaves={equipamentoAeronave} currentPage={currentPage} totalPages={totalPages} changePageHandler={onPageChange} />}
         </MainCard>

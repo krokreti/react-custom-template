@@ -8,7 +8,7 @@ const TabPatrimonio: React.FC<{ aeronave: EquipamentoAeronave | undefined }> = (
 
     return (
         <Grow
-            in={aeronave}
+            in={!!aeronave}
             unmountOnExit
             style={{ transformOrigin: '0 0 0' }}
             {...(aeronave ? { timeout: 1000 } : {})}
