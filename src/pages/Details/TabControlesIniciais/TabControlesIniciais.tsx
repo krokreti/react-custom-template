@@ -15,6 +15,7 @@ import ControleInicialCalendarico from '../../../models/ControleInicialCalendari
 import ControlePeriodo from '../../../models/ControlePeriodo';
 import { enqueueSnackbar } from 'notistack';
 import Grow from '@mui/material/Grow';
+import { generateSpreadsheet } from '../../../components/helpers/GenerateSpreadsheet';
 
 const TabControlesIniciais = () => {
     const { id: nrEquipamento } = useParams();
@@ -81,7 +82,8 @@ const TabControlesIniciais = () => {
                                 Imprimir
                             </Box>
                             <Box display={'flex'} flexDirection={'column'} alignItems={'center'} gap={1}>
-                                <CustomButton onClick={() => { }} >{<FormatListNumbered />}</CustomButton>
+                                {/* <CustomButton onClick={generateSpreadsheet} >{<FormatListNumbered />}</CustomButton> */}
+                                <CustomButton onClick={() => { generateSpreadsheet(naoCalendaricos) }} >{<FormatListNumbered />}</CustomButton>
                                 Excel
                             </Box>
                         </Box>

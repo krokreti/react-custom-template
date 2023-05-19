@@ -49,7 +49,7 @@ const authSlice = createSlice({
         setUserCpf(state: authState, action: PayloadAction<string>) {
             state.cpf = action.payload;
         },
-        getUser(state: authState) {
+        getUser(state: authState): any {
             console.log(state);
             return `${state.CD_POSTO} ${state.NM_GUERRA}`
         },
