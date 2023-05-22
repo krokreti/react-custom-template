@@ -35,7 +35,6 @@ declare module '@mui/material/styles' {
         background: {
             default: '#EEF2F6'
         }
-
     }
     // allow configuration using `createTheme`
     interface ThemeOptions {
@@ -51,6 +50,9 @@ declare module '@mui/material/styles' {
         background?: {
             default?: string,
         },
+        customBorder: {
+            default?: string,
+        }
     }
 }
 
@@ -66,7 +68,7 @@ export const lightTheme = createTheme({
             default: '#EEF2F6',
         },
         secondary: {
-            main: '#f50057',
+            main: '#E3F0FF',
         },
 
     },
@@ -90,6 +92,9 @@ export const darkTheme = createTheme({
         mode: 'dark',
         primary: {
             main: '#1976d2'
+        },
+        secondary: {
+            main: '#92A9DE'
         },
         background: {
             default: '#121212'

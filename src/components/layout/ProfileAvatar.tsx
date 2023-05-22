@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import { IconButton, Avatar, Typography, Box, MenuItem, Menu, useMediaQuery } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useAppDispatch } from '../../hooks/redux-hooks.js';
-import { fetchUserByCpf, fetchUserPictureBySaram } from '../../store/auth-slice.js';
+import { fetchUserByCpf } from '../../store/auth-slice.js';
 
 const ProfileAvatar = () => {
     const theme = useTheme();
     const [posto, setPosto] = useState<string>('');
     const [nmGuerra, setNmGuerra] = useState<string>('');
-    const [saram, setSaram] = useState<string | undefined>();
     const [foto, setFoto] = useState<string | undefined>();
     const dispatch = useAppDispatch();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
@@ -20,7 +19,6 @@ const ProfileAvatar = () => {
         dispatch(fetchUserByCpf(keycloak.tokenParsed!.preferred_username)).then((state: any) => {
             setPosto(state.payload.CD_POSTO)
             setNmGuerra(state.payload.NM_GUERRA);
-            setSaram(state.payload.NR_SARAM)
             setFoto(state.payload.CD_FOTO);
         });
     }, [])

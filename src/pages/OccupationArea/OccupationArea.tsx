@@ -8,12 +8,6 @@ import { useAppDispatch } from '../../hooks/redux-hooks';
 import { fetchUnidadesPorCpf, occupationAreaActions } from '../../store/occupation-area-slice';
 import Unidade from '../../models/Unidade';
 
-type UnidadePayload = {
-    meta: {},
-    payload: Unidade[],
-    type: string
-}
-
 const OccupationArea = () => {
     const navigate = useNavigate();
     const [selectedArea, setSelectedArea] = useState<string>('');
@@ -23,7 +17,7 @@ const OccupationArea = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(fetchUnidadesPorCpf(keycloak.tokenParsed.preferred_username)).then((state: UnidadePayload) => {
+        dispatch(fetchUnidadesPorCpf(keycloak.tokenParsed!.preferred_username)).then((state: any) => {
             setUnidades(state.payload);
         });
     }, [])

@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import ThemeController from './ThemeController';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { useMediaQuery } from '@mui/material';
+import ChangeAreaAtuacao from './ChangeAreaAtuacao';
 
 const drawerWidth = 240;
 
@@ -88,6 +89,7 @@ const NavBar: React.FC<Children> = (props) => {
                     </Box>
                     <Box display={'flex'} alignItems={'center'}>
                         {!isSmallScreen && (<ThemeController />)}
+                        {!isSmallScreen && (<ChangeAreaAtuacao />)}
                         <ProfileAvatar />
                     </Box>
                 </Toolbar>
