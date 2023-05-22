@@ -20,20 +20,6 @@ export const fetchUserByCpf = createAsyncThunk(
     }
 )
 
-export const fetchUserPictureBySaram = createAsyncThunk(
-    'usuario/fetchUserPictureBySaram',
-    async (saram: string) => {
-        const response = await fetch(`https://compraer.prd.rancher.ccarj.intraer/compraer-suporte-api/api/foto/SQL/${saram}`, {
-            method: 'GET',
-            mode: "cors",
-            headers: {
-                'Content-type': 'application/json'
-            },
-        })
-        return await response.json();
-    }
-)
-
 const initialAuthState: authState = {
     NM_GUERRA: '',
     CD_POSTO: '',
@@ -63,10 +49,7 @@ const authSlice = createSlice({
                 NR_SARAM: action.payload.NR_SARAM,
                 usuario: `${action.payload.CD_POSTO} ${action.payload.NM_GUERRA}`
             }
-        }),
-            builder.addCase(fetchUserPictureBySaram.fulfilled, (state: authState, action: any) => {
-                state.CD_FOTO = action.payload.imFoto;
-            })
+        })
     },
 });
 

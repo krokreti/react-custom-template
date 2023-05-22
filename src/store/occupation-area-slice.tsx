@@ -36,8 +36,8 @@ const initialOccupationAreaState: OccupationAreaState = {
     area: retrieveStoredOccupationArea().area,
 }
 
-const verifyUnidade = (state: OccupationAreaState): boolean => {
-    if (state.unidade == '' || state.unidade == undefined || state.unidade == null) {
+const verifyUnidade = (unidade: string): boolean => {
+    if (unidade == '' || unidade == undefined || unidade == null) {
         return false;
     } else {
         return true;

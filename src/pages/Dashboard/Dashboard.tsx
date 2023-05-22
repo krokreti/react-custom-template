@@ -8,7 +8,6 @@ import FlightIcon from '@mui/icons-material/Flight';
 import ErrorCard from "../../components/ErrorCard";
 import FilterDashboard from "./Filters/FilterDashboard";
 import { useAppSelector } from "../../hooks/redux-hooks";
-import DashboardInfo from "./DashboardInfo";
 
 interface AeronavePaginada {
     aeronaves: EquipamentoAeronave[],
@@ -60,7 +59,6 @@ const Dashboard = () => {
         <MainCard title={"Aeronaves"} startIcon={<FlightIcon color="primary" />}>
             {isLoading && <LoadingCard />}
             {!isLoading && error && (<ErrorCard message={error} />)}
-            {!isLoading && !error && <DashboardInfo />}
             {!isLoading && !error && <FilterDashboard aeronaves={filteredAeronaves} loading={loadingFilter} onChange={onFilterChange} />}
             {!isLoading && !error && <DashboardTable aeronaves={equipamentoAeronave} currentPage={currentPage} totalPages={totalPages} changePageHandler={onPageChange} />}
         </MainCard>

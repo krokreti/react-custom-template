@@ -17,20 +17,13 @@ const ProfileAvatar = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     useEffect(() => {
-        dispatch(fetchUserByCpf(keycloak.tokenParsed.preferred_username)).then((state: any) => {
+        dispatch(fetchUserByCpf(keycloak.tokenParsed!.preferred_username)).then((state: any) => {
             setPosto(state.payload.CD_POSTO)
             setNmGuerra(state.payload.NM_GUERRA);
             setSaram(state.payload.NR_SARAM)
+            setFoto(state.payload.CD_FOTO);
         });
     }, [])
-
-    useEffect(() => {
-        if (saram) {
-            dispatch(fetchUserPictureBySaram(saram)).then((state: any) => {
-                setFoto(state.payload.imFoto);
-            })
-        }
-    }, [saram])
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
