@@ -1,10 +1,15 @@
 import CustomButton from "../CustomButton";
 import EngineeringIcon from '@mui/icons-material/Engineering';
 
-const ChangeAreaAtuacao = () => {
+type Props = {
+    onClickHandler: () => void
+}
+
+const ChangeAreaAtuacao: React.FC<Props> = (props) => {
+
     return (
         <CustomButton
-            onClick={() => { }}
+            onClick={() => { props.onClickHandler() }}
             color="secondary"
             variant="text"
             startIcon={<EngineeringIcon />}

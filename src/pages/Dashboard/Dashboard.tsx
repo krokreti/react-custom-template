@@ -8,6 +8,7 @@ import FlightIcon from '@mui/icons-material/Flight';
 import ErrorCard from "../../components/ErrorCard";
 import FilterDashboard from "./Filters/FilterDashboard";
 import { useAppSelector } from "../../hooks/redux-hooks";
+import { unidade as unidadeSlice } from "../../store/occupation-area-slice";
 
 interface AeronavePaginada {
     aeronaves: EquipamentoAeronave[],
@@ -27,7 +28,7 @@ const Dashboard = () => {
     const [totalPages, setTotalPages] = useState<number | undefined>(10);
     const { sendRequest: requestAeronaves, isLoading, error } = useHttp();
     const { sendRequest: requestFilter, isLoading: loadingFilter } = useHttp();
-    const unidade = useAppSelector(state => state.occupationArea.unidade);
+    const unidade = useAppSelector(unidadeSlice);
 
     useEffect(() => {
         requestAeronaves({ url: `aeronaves/unidade/apoiadora/${unidade}?page=${currentPage}&limit=${limit}` }, (data: AeronavePaginada) => {

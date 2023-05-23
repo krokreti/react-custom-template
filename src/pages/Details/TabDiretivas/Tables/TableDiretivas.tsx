@@ -8,7 +8,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import SettingsIcon from '@mui/icons-material/Settings';
-import CustomPaginator from '../../components/CustomPaginator';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Diretiva from '../../../../models/Diretiva';
+import CustomPaginator from '../../../../components/CustomPaginator';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -18,41 +20,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     }
 }))
 
-function createData(
-    name: string,
-    calories: number,
-    fat: number,
-    carbs: number,
-    protein: number,
-    teste1: number,
-    teste2: number,
-    teste3: number,
-    teste4: number,
-) {
-    return { name, calories, fat, carbs, protein, teste1, teste2, teste3, teste4 };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 1.0, 2.0, 1, 2,),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 2, 3, 1, 2),
-    createData('Eclair', 262, 16.0, 24, 6.0, 3, 5, 1, 2),
-    createData('Cupcake', 305, 3.7, 67, 4.3, 5, 7, 1, 2),
-    createData('Gingerbread', 356, 16.0, 49, 3.9, 7, 8, 1, 2),
-];
-
 type DiretivasType = {
-    // aeronaves: EquipamentoAeronave[],
+    diretiva: Diretiva[],
     totalPages?: number,
     currentPage: number,
     changePageHandler: (_event: React.ChangeEvent<unknown>, page: number) => void,
 }
 
-const TableDiretivas = () => {
-    const [selectedRow, setSelectedRow] = useState<string>('');
-
-    const onClickTableRow = (selectedRow: string) => {
-        setSelectedRow(selectedRow)
-    }
+const TableDiretivas: React.FC<DiretivasType> = (props) => {
 
     return (
         <>
@@ -60,7 +35,7 @@ const TableDiretivas = () => {
                 <Table sx={{ minWidth: "650px" }} >
                     <TableHead >
                         <TableRow>
-                            <StyledTableCell align="center" sx={{ display: 'flex', justifyContent: 'center' }}><SettingsIcon /></StyledTableCell>
+                            <StyledTableCell align="center"><SettingsIcon /></StyledTableCell>
                             <StyledTableCell align="center">Publicação Técnica</StyledTableCell>
                             <StyledTableCell align="center">Título</StyledTableCell>
                             <StyledTableCell align="center">FADT</StyledTableCell>
@@ -72,31 +47,29 @@ const TableDiretivas = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {props.diretiva.map((diretiva, index) => (
                             <TableRow
                                 hover={true}
-                                selected={selectedRow == row.name}
-                                key={row.name}
+                                key={index}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                onClick={() => { onClickTableRow(row.name) }}
                             >
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    <DeleteIcon color='error' />
                                 </TableCell>
-                                <TableCell align="center">{row.calories}</TableCell>
-                                <TableCell align="center">{row.fat}</TableCell>
-                                <TableCell align="center">{row.carbs}</TableCell>
-                                <TableCell align="center">{row.protein}</TableCell>
-                                <TableCell align="center">{row.teste1}</TableCell>
-                                <TableCell align="center">{row.teste2}</TableCell>
-                                <TableCell align="center">{row.teste3}</TableCell>
-                                <TableCell align="center">{row.teste4}</TableCell>
+                                <TableCell align="center">{diretiva.CD_FADT}</TableCell>
+                                <TableCell align="center">{diretiva.CD_FADT}</TableCell>
+                                <TableCell align="center">{diretiva.CD_FADT}</TableCell>
+                                <TableCell align="center">{diretiva.CD_FADT}</TableCell>
+                                <TableCell align="center">{diretiva.UNIDADES?.SG_UNIDADE}</TableCell>
+                                <TableCell align="center">{diretiva.DT_CUMPRIMENTO}</TableCell>
+                                <TableCell align="center">{diretiva.NR_OS}</TableCell>
+                                <TableCell align="center">{diretiva.NM_USER_UPDATE}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            {/* <CustomPaginator totalPages={totalPages} currentPage={currentPage} onChangePage={changePageHandler} /> */}
+            <CustomPaginator totalPages={props.totalPages} currentPage={props.currentPage} onChangePage={props.changePageHandler} />
         </>
     )
 }

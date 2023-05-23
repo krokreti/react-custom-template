@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import Children from '../../models/Children';
 import ProfileAvatar from './ProfileAvatar';
 import CustomDrawer from './CustomDrawer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ThemeController from './ThemeController';
 import { useAppSelector } from '../../hooks/redux-hooks';
 import { useMediaQuery } from '@mui/material';
@@ -69,9 +69,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const NavBar: React.FC<Children> = (props) => {
     const theme = useTheme();
+    const navigate = useNavigate();
     const isLightMode = useAppSelector(state => state.theme.isLightMode);
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
+
+    const redirectToAreaAtuacao = () => {
+        navigate('/area-atuacao')
+    }
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -81,7 +86,6 @@ const NavBar: React.FC<Children> = (props) => {
                     <Box display={'flex'} alignItems={'center'}>
                         <CustomDrawer />
                         <Typography variant="h6" noWrap component="div" display={'flex'} alignItems={'center'}>
-                            {/* <FlightIcon sx={{ marginRight: 2 }} /> */}
                             <Link to={`/`} style={{ textDecoration: 'none', color: 'white' }} >
                                 Manutenção de Aeronaves
                             </Link>
@@ -89,7 +93,7 @@ const NavBar: React.FC<Children> = (props) => {
                     </Box>
                     <Box display={'flex'} alignItems={'center'}>
                         {!isSmallScreen && (<ThemeController />)}
-                        {!isSmallScreen && (<ChangeAreaAtuacao />)}
+                        {!isSmallScreen && (<ChangeAreaAtuacao onClickHandler={redirectToAreaAtuacao} />)}
                         <ProfileAvatar />
                     </Box>
                 </Toolbar>

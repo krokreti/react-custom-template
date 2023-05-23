@@ -4,17 +4,18 @@ import MiniCard from "../../components/shared/MiniCard";
 import CustomButton from '../../components/CustomButton';
 import keycloak from '../../plugins/keycloak.js';
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { fetchUnidadesPorCpf, occupationAreaActions } from '../../store/occupation-area-slice';
 import Unidade from '../../models/Unidade';
+import { unidade } from '../../store/occupation-area-slice';
 
 const OccupationArea = () => {
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
     const [selectedArea, setSelectedArea] = useState<string>('');
-    const [selectedUnidade, setSelectedUnidade] = useState<string>('');
+    const [selectedUnidade, setSelectedUnidade] = useState<Unidade>();
     const [unidades, setUnidades] = useState<Unidade[]>([]);
     const [isFormValid, setIsFormValid] = useState<boolean>(false);
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(fetchUnidadesPorCpf(keycloak.tokenParsed!.preferred_username)).then((state: any) => {
@@ -36,7 +37,7 @@ const OccupationArea = () => {
 
     const onClickHandler = () => {
         dispatch(occupationAreaActions.setToken({
-            unidade: selectedUnidade,
+            unidade: selectedUnidade!.CD_UNIDADE,
             area: selectedArea,
         }))
         navigate("/");
@@ -52,13 +53,18 @@ const OccupationArea = () => {
         </Typography>
         <Box display={'flex'} flexDirection={'column'} gap={4}>
             <Autocomplete
+                value={selectedUnidade}
                 size='small'
                 options={unidades}
-                getOptionLabel={(unidade: Unidade) => unidade.SG_UNIDADE}
+                getOptionLabel={(unidade: Unidade) => (
+                    unidade.SG_UNIDADE || ''
+                )}
                 renderInput={(params: any) => <TextField {...params} label="Unidade" />}
-                onChange={(_event: React.SyntheticEvent, newValue: Unidade) => {
+                onChange={(_event: React.SyntheticEvent, newValue: Unidade | null) => {
                     console.log(newValue)
-                    setSelectedUnidade(newValue.CD_UNIDADE);
+                    if (newValue) {
+                        setSelectedUnidade(newValue);
+                    }
                 }}
             />
             {/* <FormControl size='small'>

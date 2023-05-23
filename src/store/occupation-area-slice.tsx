@@ -36,8 +36,12 @@ const initialOccupationAreaState: OccupationAreaState = {
     area: retrieveStoredOccupationArea().area,
 }
 
-const verifyUnidade = (unidade: string): boolean => {
-    if (unidade == '' || unidade == undefined || unidade == null) {
+const verifyUnidade = (): boolean => {
+    if (
+        localStorage.getItem('unidade') == '' ||
+        localStorage.getItem('unidade') == null ||
+        localStorage.getItem('unidade') == undefined
+    ) {
         return false;
     } else {
         return true;
@@ -57,7 +61,7 @@ const occupationAreaSlice = createSlice({
     },
     extraReducers: (builder: any) => {
         builder.addCase(fetchUnidadesPorCpf.fulfilled, (state: OccupationAreaState, action: PayloadAction<OccupationAreaState>) => {
-            // console.log(action.payload);
+            state.unidade = action.payload.unidade
         })
     }
 });
@@ -65,6 +69,6 @@ const occupationAreaSlice = createSlice({
 export const occupationAreaActions = occupationAreaSlice.actions;
 export const unidade = (state: RootState) => state.occupationArea.unidade;
 export const area = (state: RootState) => state.occupationArea.area;
-export const hasUnidade = (state: RootState) => verifyUnidade(state.occupationArea.unidade);
+export const hasUnidade = () => verifyUnidade();
 
 export default occupationAreaSlice.reducer;
